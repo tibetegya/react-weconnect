@@ -4,7 +4,7 @@ function RegisterForm(props) {
     return(
         <div class="row justify-content-md-center">
             <div class="col-md-5">
-                <form>
+                <form onSubmit={this.registerUser}>
                     <div className="form-group">
                         <label htmlFor="formGroupExampleInput2">Enter Username</label>
                         <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Username" />
