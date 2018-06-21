@@ -12,7 +12,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Fira Sans", sans-serif; }
-
+.txt-white{
+  color: white;
+}
 .circular {
   font-family: "Circular", sans-serif; }
 
@@ -26,7 +28,8 @@ body {
 .jumbotron {
   background-image: url("Images/hero.png");
   background-position: center center;
-  background-size: cover; }
+  background-size: cover;
+  }
 
 .search-form .form-row {
   border-radius: 0.4rem;
@@ -55,5 +58,15 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center; }
+.review-color{
+  background-color: aquamarine;
+  height: 3rem;
+  width: 3rem;
+}
+.business-color{
+  background-color: #333;
+  height: 3rem;
+  width: 3rem;
+}
 
 /*# sourceMappingURL=style.css.map */

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 
-import Navbar from './components/navbar';
 
 class Layout extends Component {
-    render(props){
+    constructor(props) {
+        super(props);
+        this.state = {
+            token : '',
+        }
+    }
+    render(){
         return (
             <div className="container-fluid">
-              <Navbar />
                 {this.props.children}
             </div>
           );
