@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
 
 import Jumbotron from './components/jumbotron';
-import ReviewCard from './components/review'
+import Header from './components/header';
+import Navbar from './components/navbar';
 
 class Home extends Component {
-    render(props){
+    render(){
+        let slogan = `WeConnect provides a platform that brings businesses and individuals together 
+        And creates awareness for businesses through user reviews`
         return (
-        <div>
-        <Jumbotron />
-          <div className="row " style={{marginTop: '10rem 0 0 0'}}>
-            <div className="col-md-12 ">
-                <ReviewCard/>
-                <ReviewCard/>
-              <div className="w-100"/>
-              <ReviewCard/>
-              <ReviewCard/>
-            </div>
-          </div>
+            <div>
+                <Navbar navClass="sticky-top shadow" page="home"/>
+        <Jumbotron>
+            <Header color="white" heading="WeConnect" text={slogan}/>
+        </Jumbotron>
         </div>
         );
     }
