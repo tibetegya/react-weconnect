@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Header from './components/header';
-import { ROOT_URL } from './App'
-import Navbar from './components/navbar'
+import Header from './header';
+import { ROOT_URL } from '../App'
+import Navbar from './navbar'
 
 export default class Register extends Component{
     

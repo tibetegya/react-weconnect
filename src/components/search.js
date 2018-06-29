@@ -3,15 +3,16 @@ import axios from 'axios';
 
 import { ROOT_URL } from '../App';
 import BusinessCard from './business';
-import * as categoryData from '../categories.json';
-import * as countryData from '../countries.json';
+import * as categoryData from '../assets/categories.json';
+import * as countryData from '../assets/countries.json';
 import { withRouter } from "react-router-dom";
+import { setTimeout } from 'timers';
 
 class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      token : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYnJ5bzEyIiwiZXhwIjoxNTI5ODc2ODQ4fQ.NYCZIYSAdRmzazRfU62BMLkHzSX6DNVKMdjiemOOSPI',
+      token : '',
       countries: countryData,
       categories: categoryData,
       searchCategory: '',
@@ -24,40 +25,73 @@ class Search extends Component {
 
     };
   }
-  componentDidMount = ()=>{
+  componentWillMount(){
+
     if(localStorage.getItem('token')){
       this.setState({
         isLoggedIn: true,
         token: localStorage.getItem('token')
       })
   }
+
+    setTimeout(()=> {if(this.state.isLoggedIn){
+      axios.get(`${ROOT_URL}/businesses`, {
+          headers: {'Content-Type':'application/json','Authorization': 'Bearer '+this.state.token }
+      })
+        .then(res => {
+              // console.log(res);
+              // console.log(res.data['businesses']);
+              this.setState({businessData: res.data['businesses']})
+        })
+        .catch(error =>{
+            console.log(error.response.data)
+        });
+      }else{
+        this.props.history.push('/login');
+      }
+    },1)
+  }
+
+  componentDidMount = ()=>{
+    
 }
   handleSubmit = e => {
     e.preventDefault();
 
-    // const searchParams = {
-    //     business :this.state.searchBusiness,
-    //     location : this.state.searchLocation,
-    //     category: this.state.searchCategory
-    // }
-    // let q
-    // let location
-    // let category
-    // let
+    let parameters = {
+        q :this.state.searchBusiness,
+        location : this.state.searchLocation,
+        category: this.state.searchCategory
+    }
 
-    // searchParams.map(elm => )
+    let searchParams = {}
+
+      if (parameters.q !== ''){
+        searchParams.q = parameters.q
+        console.log(searchParams)
+      }
+      if (parameters.location !== ''){
+        searchParams.location = parameters.location
+        console.log(searchParams)
+      }
+      if (parameters.category !== ''){
+        searchParams.category = parameters.category
+        console.log(searchParams)
+      }
+
+
+
+
+
+
     if(this.state.isLoggedIn){
     axios.get(`${ROOT_URL}/businesses`, {
-    //   params: {
-    //     q: searchParams.business,
-    //     location: searchParams.location,
-    //     category: searchParams.category,
-    //   },
+      params: searchParams,
         headers: {'Content-Type':'application/json','Authorization': 'Bearer '+this.state.token }
     })
       .then(res => {
-            console.log(res);
-            console.log(res.data['businesses']);
+            // console.log(res);
+            // console.log(res.data['businesses']);
             this.setState({businessData: res.data['businesses']})
       })
       .catch(error =>{
@@ -68,12 +102,13 @@ class Search extends Component {
     }
     }
 handleInput = e => {
-    console.log(this.state)
+    // console.log(this.state)
     this.setState({[e.target.name]: e.target.value})
 }
   render(){
     let countryArray = this.state.countries
     let categoryArray = this.state.categories
+    console.log(this.state.businessData)
     return(
         <div className="search-form">
         <form onSubmit={this.handleSubmit}>
@@ -82,6 +117,7 @@ handleInput = e => {
               <label className="sr-only" htmlFor="inlineFormInput">Name</label>
               <input onChange={this.handleInput} name="searchBusiness" type="text" className="form-control mb-2" id="inlineFormInput" placeholder="Search for a Business..." />
             </div>
+
             <div className="col-md-2" style={{marginBottom: '.6rem'}}>
               <select onChange={this.handleInput} name="searchLocation" className="custom-select mr-sm-2" id="inlineFormCustomSelect">
               {countryArray.map(country =>
@@ -90,6 +126,7 @@ handleInput = e => {
               </select>
               <label className="mr-sm-2" htmlFor="inlineFormCustomSelect" style={{fontSize: '.8rem', fontWeight: 'bold', color: '#858585'}}>Search by Location</label>
             </div>
+
             <div className="col-md-2 " style={{marginBottom: '.6rem'}}>
               <select onChange={this.handleInput} name="searchCategory" className="custom-select mr-sm-2" id="inlineFormCustomSelect">
               {categoryArray.map(category =>

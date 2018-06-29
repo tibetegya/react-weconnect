@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Search from './components/search'
-import Navbar from './components/navbar'
+import Search from './search'
+import Navbar from './navbar'
 
 export default class Results extends Component {
 

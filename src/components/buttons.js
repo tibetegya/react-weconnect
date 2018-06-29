@@ -27,7 +27,7 @@ export function SearchButton(props) {
   return (
     <li className="nav-item" style={{marginRight: '2rem'}}>
     <a className="nav-link " href="/results">
-    Search for a business
+    Businesses
     </a>
   </li>
 );

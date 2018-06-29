@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import Navbar from './components/navbar'
-import Header from './components/header';
-import { ROOT_URL } from './App'
+import Navbar from './navbar'
+import Header from './header';
+import { ROOT_URL } from '../App'
 import { withRouter } from "react-router-dom";
 
  class Login extends Component{
@@ -41,9 +41,6 @@ import { withRouter } from "react-router-dom";
 
 				this.props.history.push('/home');
 		  })
-		  .catch(error =>{
-			  console.log(error.response.data)
-		  });
 		}
 	handleInput = e => {
 		console.log(this.state)
@@ -66,7 +63,6 @@ import { withRouter } from "react-router-dom";
 							<input  onChange={this.handleInput} name="username" type="text"
 							className="form-control" id="inputUsername" placeholder="Enter Username" />
 						</div>
-
 						<div className="form-group">
 							<label>Password</label>
 							<input onChange={this.handleInput} name="password" type="password"
@@ -81,12 +77,32 @@ import { withRouter } from "react-router-dom";
 			</form>
 			<div className="flex justify-content-md-center">
 				<span>In case you forgot the password </span>
-				<a href="/reset-password"> Reset password</a>
+				<a data-toggle="modal" data-target="#resetModal" href=""> Reset password</a>
 			</div>
 			</div>
 			</div>
 			</div>
-	</div>);
+			<div className="modal fade" id="resetModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div className="modal-body">
+							...
+						</div>
+						<div className="modal-footer">
+							<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" className="btn btn-primary">Save changes</button>
+						</div>
+					</div>
+				</div>
+				</div>
+	</div>
+	);
 	}
 }
 export default withRouter(Login);

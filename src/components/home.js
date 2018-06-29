@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import Jumbotron from './components/jumbotron';
-import Header from './components/header';
-import Navbar from './components/navbar';
+import Jumbotron from './jumbotron';
+import Header from './header';
+import Navbar from './navbar';
 
 class Home extends Component {
     render(){

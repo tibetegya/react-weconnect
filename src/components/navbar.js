@@ -4,6 +4,7 @@ import logo from '../css/Images/logo.svg';
 import SettingsButton from './settings'
 import { LoginButton,  RegisterButton, SearchButton } from './buttons'
 import { withRouter } from "react-router-dom";
+import jwt_decode from 'jwt-decode';
 
 class Navbar extends Component {
   constructor(props) {
@@ -12,16 +13,26 @@ class Navbar extends Component {
         navClass: '',
         isLoggedIn: false,
         page: '',
-        token: ''
+        token: '',
+        user: ''
 
 
     };
   }
-  componentDidMount =()=>{
+  componentWillMount (){
     if(localStorage.getItem('token')){
+      let decoded_user = jwt_decode(localStorage.getItem('token'));
+      // console.log(decoded_user)
       this.setState({
         isLoggedIn: true,
-        token: localStorage.getItem('token')
+        token: localStorage.getItem('token'),
+        user: decoded_user.user
+      });
+    }else{
+      this.setState({
+        isLoggedIn: false,
+        token: '',
+        user: ''
       });
     }
     this.setState({
@@ -36,6 +47,9 @@ class Navbar extends Component {
 
     })
   }
+  shouldComponentUpdate =()=>{
+    return (localStorage.getItem('token') === null)
+  }
 render(){
   let navClassName = "navbar navbar-expand-lg navbar-dark "+this.state.navClass;
   const isLoggedIn = this.state.isLoggedIn;
@@ -43,12 +57,12 @@ render(){
     let searchButton;
 
     if (isLoggedIn) {
-      button = <SettingsButton logout={this.state}/>;
+      button = <SettingsButton user={this.state.user} logout={this.state}/>;
     } else {
       if (this.state.page === 'userlogger') {
         button = null;
       }else{
-      button = [<LoginButton />,<RegisterButton/>].map( btn => btn)
+      button = [<LoginButton key={0}/>,<RegisterButton key={1}/>].map( btn => btn)
     }}
 
     if (this.state.page === 'home') {

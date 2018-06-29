@@ -9,7 +9,8 @@ class SettingsButton extends Component {
         super(props);
         this.state = {
             isLoggedIn: this.props.logout.isLoggedIn,
-            token: this.props.logout.token
+            token: this.props.logout.token,
+            user: this.props.user
 
 
         };
@@ -17,8 +18,8 @@ class SettingsButton extends Component {
 
     logoutUser = e =>{
         e.preventDefault();
-        console.log(localStorage.getItem('token'))
-        console.log(this.state.token)
+        // console.log(localStorage.getItem('token'))
+        // console.log(this.state.token)
 
         if(localStorage.getItem('token')){
 
@@ -33,23 +34,28 @@ class SettingsButton extends Component {
                   isLoggedIn: false
               });
               localStorage.removeItem('token')
-              this.props.history.push('/home');
+              this.props.history.replace('/home');
+        }).catch( (error) =>{
+
+            console.log(error)
+            // localStorage.removeItem('token')
         })
             }else{
             this.props.history.push('/login');
         }
       }
       render(){
+        //   console.log(this.state)
     return (
         <li className="nav-item">
         <div className="dropdown show">
-            <a className=" nav-link btn btn-dark my-2 my-sm-0 dropdown-toggle" 
+            <a className=" nav-link btn btn-dark my-2 my-sm-0 dropdown-toggle" style={{paddingLeft:'1rem', paddingRight:'1rem'}}
             role="button" id="dropdownMenuLink" 
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Settings
             </a>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a className="dropdown-item" href="/user-profile">My Profile</a>
+            <a className="dropdown-item" href={`/user-profile/${this.state.user}`}>My Profile</a>
             <a onClick={this.logoutUser} className="dropdown-item" >Logout</a>
             </div>
         </div>

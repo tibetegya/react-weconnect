@@ -1,7 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 
-function ReviewCard(props) {
+export default class ReviewCard extends Component{
+  constructor(props){
+    super(props)
+    this.state ={
+      title: '',
+      body: '',
+      author: '',
+      creationDate: '',
+      showCard: false
+    }
+  }
+  componentWillMount(){
+    if (this.props.title !== undefined){
+      this.setState({
+        title: this.props.title,
+        body: this.props.body,
+        author: this.props.author,
+        creationDate: this.props.creationDate,
+        showCard: true
+      })
+    }
+    
+  }
+  render(){
+  if (this.state.showCard){
     return(
         <div className="col centery">
         <div className="card col-md-6" style={{margin: '0 0 2rem 0'}}>
@@ -9,20 +33,22 @@ function ReviewCard(props) {
             <div className="col-12" style={{display: 'flex'}}>
               <div width={40} height={40} className="rounded-circle review-color" />
               <div className="title" style={{margin: '0 0 0 1rem'}}>
-                <h5 className="card-title circular">This business is one to watch out for</h5>
-                <h6 className="card-subtitle mb-2 text-muted">Airtel Uganda</h6>
+                <h5 className="card-title circular">{this.state.title}</h5>
               </div>
             </div>
             <div className="col-12">
-              <p className="card-text">I liked Javas alot exeept for their expensive menu offering i think its better you go to Java House.</p>
+              <p className="card-text">{this.state.body}</p>
               <div className="d-flex flex-row justify-content-end" style={{display: 'flex'}}>
-              <h6 className="card-subtitle mb-2 text-muted" style={{fontSize: '.8rem', paddingRight: '1rem'}}>By Peterwade</h6>
-              <h6 className="card-subtitle mb-2 text-muted" style={{fontSize: '.8rem'}}>2nd Fed 2018</h6>
+              <h6 className="card-subtitle mb-2 text-muted" style={{fontSize: '.8rem', paddingRight: '1rem'}}>By {this.state.author}</h6>
+              <h6 className="card-subtitle mb-2 text-muted" style={{fontSize: '.8rem'}}>{this.state.creationDate}</h6>
               </div>
             </div>
           </div>
         </div>
       </div>
     );
+  }else{
+    return null;
+  }
+  }
 }
-export default ReviewCard;
