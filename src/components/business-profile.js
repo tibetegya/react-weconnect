@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
-
+import { withRouter, Redirect } from 'react-router-dom'
+import { isLoggedIn } from './utils';
 import ReviewCard from './review';
 import Navbar from './navbar'
 import axios from 'axios'
 import { ROOT_URL } from '../App'
+import Notifications, {notify} from 'react-notify-toast';
+import jwt_decode from 'jwt-decode';
 
 class BusinessProfile extends Component {
   constructor(props){
@@ -15,45 +17,79 @@ class BusinessProfile extends Component {
       reviewsData: []
     }
   }
+
   componentDidMount(){
+
+    //fetch business business and its review data when the page is rendered
     this.getBusinessData()
     this.getReviewsData()
+
+    //display a message on sucessful addition of a review
+    if (this.props.match.params.msg === 'review-success'){
+      notify.show('Review Added sucessfully', 'success')
+    }
+  }
+  isOwner = ()=>{
+    //checks whether logged in user owns that particular business.
+
+    let decodedUser = jwt_decode(localStorage.getItem('token')).user;
+    let businessOwner = this.state.business.creator
+    if (decodedUser === businessOwner){
+      //renders edit and delete buttons if user owns business
+      return(
+            <div className="d-flex flex-row">
+              <div><a className="nav-link" href={"/edit-business/"+this.props.match.params.id}>
+              <button className="btn btn-primary my-2 my-sm-0 align-items-center" 
+              style={{fontSize: '1rem', padding: '.6rem 2rem'}}>Edit</button>
+              </a></div>
+              <div><a className="nav-link" >
+              <button className="btn btn-danger my-2 my-sm-0 align-items-center" 
+              style={{fontSize: '1rem', padding: '.6rem 1rem'}}
+              data-toggle="modal" data-target="#deleteModal">Delete</button>
+              </a></div>
+              </div>
+      );
+    }else{
+      //renders add review button if user does not own business
+      return(
+            <a className="nav-link" href={`/add-review/${this.state.businessId}`}>
+            <button className="btn btn-success my-2 my-sm-0 align-items-center" 
+            style={{fontSize: '1rem', padding: '.6rem'}}>Add review</button>
+            </a>
+      )
+    }
   }
   getBusinessData =()=>{
+    //fetches business data
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
         axios.get(`${ROOT_URL}/businesses/${this.state.businessId}`, 
           {
               headers: {'Content-Type':'application/json' }
           })
           .then(res => {
-                // console.log(res.data);
                 this.setState({
                   business: res.data
                 })
           })
-          .catch(error =>{
-              // console.log(error.response.data)
-          });
+          .catch(error =>{});
   }
   getReviewsData =()=>{
+    //fetches all reviews for the business
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
         axios.get(`${ROOT_URL}/businesses/${this.state.businessId}/reviews`, 
           {
               headers: {'Content-Type':'application/json' }
           })
           .then(res => {
-                // console.log(res.data);
+            console.log(res.data)
                 this.setState({
                   reviewsData: res.data
                 })
-                console.log('reviews',this.state.reviewsData);
           })
-          .catch(error =>{
-              // console.log(error.response.data)
-          });
+          .catch(error =>{});
   }
   mapReviews = ()=>{
-    console.log(this.state.reviewsData)
+    //maps each review to a card
     if(this.state.reviewsData.length >= 1){
     return (this.state.reviewsData.map(review =>
       <ReviewCard key={review.title} title={review.title} body={review.body}
@@ -63,25 +99,24 @@ class BusinessProfile extends Component {
       }
   }
   handleBusinessDelete =() =>{
+    //maps each business to a card
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
     axios.delete(`${ROOT_URL}/businesses/${this.props.match.params.id}`, 
       {
           headers: {'Content-Type':'application/json' }
       })
       .then(res => {
-            console.log(res);
-            this.props.history.push('/home')
+            this.props.history.push('/home/delete-success')
       })
-      .catch(error =>{
-          // console.log(error.response.data)
-      });
+      .catch(error =>{});
   }
 
   render(){
-    console.log('id',this.state.businessId)
         return (
+          isLoggedIn()?
           <div>
             <Navbar/>
+            <Notifications />
             <div className="jumbotron jumbotron-fluid">
         <div className="container">
           <div className="row">
@@ -120,19 +155,7 @@ class BusinessProfile extends Component {
                     </div>
                     <div className="w-100" />
                     <div className="col" style={{display: 'flex'}}>
-                      <a className="nav-link" href={`/add-review/${this.state.businessId}`}>
-                      <button className="btn btn-success my-2 my-sm-0 align-items-center" 
-                      style={{fontSize: '1rem', padding: '.6rem'}}>Add review</button>
-                      </a>
-                      <a className="nav-link" href="/edit-business">
-                      <button className="btn btn-primary my-2 my-sm-0 align-items-center" 
-                      style={{fontSize: '1rem', padding: '.6rem 2rem'}}>Edit</button>
-                      </a>
-                      <a className="nav-link" >
-                      <button className="btn btn-danger my-2 my-sm-0 align-items-center" 
-                      style={{fontSize: '1rem', padding: '.6rem 1rem'}}
-                      data-toggle="modal" data-target="#deleteModal">Delete</button>
-                      </a>
+                      {this.isOwner()}
                     </div>
                   </div>
                 </div>
@@ -157,7 +180,7 @@ class BusinessProfile extends Component {
         </div>
       </div>
       </div>
-      
+
   <div className="modal fade" id="deleteModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog" role="document">
     <div className="modal-content">
@@ -177,7 +200,7 @@ class BusinessProfile extends Component {
 
 
       </div>
-      
+      : <Redirect to={{pathname:'/login'}}/>
         );
     }
 }
