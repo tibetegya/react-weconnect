@@ -5,6 +5,7 @@ import Navbar from './navbar'
 import Header from './header';
 import { ROOT_URL } from '../App'
 import { withRouter } from "react-router-dom";
+import Notifications, {notify} from 'react-notify-toast';
 
  class Login extends Component{
 
@@ -13,42 +14,100 @@ import { withRouter } from "react-router-dom";
 		this.state = {
 			username: '',
 			password: '',
-			token: ''
-
-
+			token: '',
+			emailForReset:'',
+			newPassword :'',
+			confirmNewPassword: ''
 		};
 	  }
 
 	handleSubmit = e => {
 		e.preventDefault();
+		//check for empty fields before submitting
+		if (this.state.username === ''){
+			notify.show('Username is missing', 'error')
+		}else if (this.state.password === ''){
+			notify.show('Password is missing', 'error')
+		}
+		else{
 
 		const userData = {
 			user_name :this.state.username,
 			password : this.state.password
 		}
-
+		//api call to login endpoint
 		axios.post(`${ROOT_URL}/auth/login`, JSON.stringify(userData), {
 			headers: {'Content-Type':'application/json'}
 		})
 		  .then(res => {
-				console.log(res.data.token);
+			  //save token in state
 				this.setState({
 					token:res.data.token,
 					isLoggedIn: true
 				});
-				console.log('token is',this.state.token)
+				//store token in localstorage
 				localStorage.setItem('token', this.state.token)
 
-				this.props.history.push('/home');
+				//redirect user to home page
+				this.props.history.push('/home/login-success');
+		  }).catch(error =>{
+			  //display error massage to user on failure to login
+			notify.show(error.response.data.message, 'error')
 		  })
 		}
+	}
 	handleInput = e => {
-		console.log(this.state)
 		this.setState({[e.target.name]: e.target.value})
+		//check for password confirmation
+		if(e.target.name === 'confirmNewPassword'){
+            if(this.state.newPassword === ''){
+                e.target.value = ''
+                notify.show('Input new password first', 'error')
+            }else if (e.target.value === this.state.newPassword){
+                notify.show('Password Cofirmed', 'success', 800)
+            }else if (e.target.value.length > this.state.newPassword.length){
+                notify.show('Password does not match', 'error')
+			}
+		}
+	}
+	handlePasswordReset = e =>{
+		e.preventDefault();
+		//check for empty feilds before password reset is submitted
+		if (this.state.emailForReset === ''){
+			notify.show('Email is missing', 'error')
+		}else if (this.state.newPassword === ''){
+			notify.show('Password is missing', 'error')
+		}
+		else{
+			const resetData = {
+				email :this.state.emailForReset,
+				new_password : this.state.newPassword
+			}
+			//api call to password reset endpoint
+			axios.post(`${ROOT_URL}/auth/reset-password`, JSON.stringify(resetData), {
+				headers: {'Content-Type':'application/json'}
+			})
+			  .then(res => {
+				  //display message on successful password reset
+					notify.show(res.data.message, 'success')
+			  }).catch(error =>{
+
+				//display message on failure of password reset
+					notify.show(error.response.data.message, 'error')
+			  })
+		}
+
+	}
+	componentDidMount(){
+		//display message upon sucessful registration
+		if(this.props.match.params.msg){
+            notify.show('You are registered sucessfully', 'success')
+        }
 	}
 	render(){
 	return(
 		<div>
+		<Notifications options={{zIndex: 20000}} />
 			<Navbar page="userlogger"/>
 				<div className="container">
 
@@ -86,17 +145,31 @@ import { withRouter } from "react-router-dom";
 				<div className="modal-dialog" role="document">
 					<div className="modal-content">
 						<div className="modal-header">
-							<h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+							<h5 className="modal-title" id="resetModalLabel">Reset Password</h5>
 							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">×</span>
 							</button>
 						</div>
 						<div className="modal-body">
-							...
+						<div className="form-group">
+							<label>Your Email address</label>
+							<input onChange={this.handleInput} name="emailForReset" type="email"
+									className="form-control" id="emailForReset" placeholder="current email" />
+									</div>
+							<div className="form-group">
+							<label>New Password</label>
+							<input onChange={this.handleInput} name="newPassword" type="password"
+									className="form-control" id="newPassword" placeholder="new password" />
+						</div>
+						<div className="form-group">
+							<label>Confirm</label>
+							<input onChange={this.handleInput} name="confirmNewPassword" type="password"
+									className="form-control" id="confirmNewPassword" placeholder="Confirm new password" />
+						</div>
 						</div>
 						<div className="modal-footer">
-							<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="button" className="btn btn-primary">Save changes</button>
+							<button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+							<button onClick={this.handlePasswordReset} type="button" className="btn btn-primary" data-dismiss="modal" >Reset Password</button>
 						</div>
 					</div>
 				</div>
