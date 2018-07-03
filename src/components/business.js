@@ -16,6 +16,7 @@ export default class BusinessCard extends Component {
   componentWillMount =()=>{
     this.setState({
       hasData: ()=>{
+        //checks if props has business name
         if(this.props.name !== ''){
           return true
         }
@@ -28,8 +29,8 @@ export default class BusinessCard extends Component {
     });
   }
 render(){
-  // console.log('',this.state)
   if (this.state.hasData ){
+    //renders a card if the business has data and nothing if it does not
     return(
       <div className="col centery">
         <div className="card col-md-6" style={{margin: '0 0 2rem 0'}}>
