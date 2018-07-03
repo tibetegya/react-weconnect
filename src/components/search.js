@@ -5,8 +5,9 @@ import { ROOT_URL } from '../App';
 import BusinessCard from './business';
 import * as categoryData from '../assets/categories.json';
 import * as countryData from '../assets/countries.json';
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { setTimeout } from 'timers';
+import { isLoggedIn } from './utils';
 
 class Search extends Component {
   constructor(props) {
@@ -19,14 +20,16 @@ class Search extends Component {
       searchBusiness: '',
       searchLocation: '',
       searchLimit: 10,
+      page: null,
       prevPage: null,
-      nextPage:1,
-      businessData: []
+      nextPage: null,
+      businessData: [],
+      pageLinks : []
 
     };
   }
   componentWillMount(){
-
+    //update state if a token exists
     if(localStorage.getItem('token')){
       this.setState({
         isLoggedIn: true,
@@ -34,82 +37,98 @@ class Search extends Component {
       })
   }
 
-    setTimeout(()=> {if(this.state.isLoggedIn){
+    setTimeout(()=> {
+      //api call to get businesses
       axios.get(`${ROOT_URL}/businesses`, {
           headers: {'Content-Type':'application/json','Authorization': 'Bearer '+this.state.token }
       })
         .then(res => {
-              // console.log(res);
-              // console.log(res.data['businesses']);
-              this.setState({businessData: res.data['businesses']})
+              this.setState({
+                businessData: res.data['businesses'],
+                prevPage: res.data['prev_page'],
+                nextPage: res.data['next_page']
+
+            })
+            //add pagination links
+            let pageLinks = []
+            if (this.state.prevPage !== null){
+              pageLinks.push(<li key='prev' className="page-item" ><a className="page-link" href=""  name='prevPage' onClick={this.paginate} page={this.state.prevPage}>previous</a></li>)
+            }
+            if (this.state.nextPage !== null){
+              pageLinks.push(<li key='next' className="page-item"><a className="page-link" href=""  onClick={this.paginate} name={this.state.nextPage}>next</a></li>)
+            }
+          this.setState({pageLinks:pageLinks})
         })
         .catch(error =>{
-            console.log(error.response.data)
+          if(error.response.status === 401){
+            //redirect to login if the token is expired/invalid
+            this.props.history.push('/login');
+          }
         });
-      }else{
-        this.props.history.push('/login');
-      }
     },1)
+
+
   }
 
   componentDidMount = ()=>{
-    
 }
   handleSubmit = e => {
     e.preventDefault();
+    this.submitData()
+  }
 
+  submitData = ()=>{
     let parameters = {
         q :this.state.searchBusiness,
         location : this.state.searchLocation,
-        category: this.state.searchCategory
+        category: this.state.searchCategory,
+        page : this.state.page
     }
 
     let searchParams = {}
-
+      //check for existance of query strings and add them to search object
       if (parameters.q !== ''){
         searchParams.q = parameters.q
-        console.log(searchParams)
       }
       if (parameters.location !== ''){
         searchParams.location = parameters.location
-        console.log(searchParams)
       }
       if (parameters.category !== ''){
         searchParams.category = parameters.category
-        console.log(searchParams)
+      }
+      if (parameters.page !== null){
+        searchParams.page = parameters.page
       }
 
-
-
-
-
-
-    if(this.state.isLoggedIn){
+      //api call to the search businesses endpoint
     axios.get(`${ROOT_URL}/businesses`, {
       params: searchParams,
         headers: {'Content-Type':'application/json','Authorization': 'Bearer '+this.state.token }
     })
       .then(res => {
-            // console.log(res);
-            // console.log(res.data['businesses']);
             this.setState({businessData: res.data['businesses']})
       })
       .catch(error =>{
-          console.log(error.response.data)
+        console.log(error.response.data)
       });
-    }else{
-      this.props.history.push('/login');
-    }
+
     }
 handleInput = e => {
-    // console.log(this.state)
     this.setState({[e.target.name]: e.target.value})
+}
+
+paginate = e =>{
+  //handles pagination of businesses
+ e.preventDefault()
+ console.log(e.target.name)
+ this.setState({page: e.target.name})
+ this.submitData()
 }
   render(){
     let countryArray = this.state.countries
     let categoryArray = this.state.categories
-    console.log(this.state.businessData)
     return(
+      isLoggedIn() ?
         <div className="search-form">
         <form onSubmit={this.handleSubmit}>
           <div className="form-row align-items-top">
@@ -146,7 +165,14 @@ handleInput = e => {
                               location={business.location} profile={business.profile} id={business.id}/>
                         )}
         </div>
+        <nav aria-label="Page navigation example">
+  <ul className="pagination justify-content-center">
+  {this.state.pageLinks.map(link => link)}
+  </ul>
+</nav>
+
       </div>
+      : <Redirect to={{pathname:'/login'}}/>
     );
 }
 }
