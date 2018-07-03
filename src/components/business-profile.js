@@ -81,7 +81,6 @@ class BusinessProfile extends Component {
               headers: {'Content-Type':'application/json' }
           })
           .then(res => {
-            console.log(res.data)
                 this.setState({
                   reviewsData: res.data
                 })

@@ -6,11 +6,5 @@ cache:
   - node_modules
 script:
   - npm test
-  - npm run build
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $github_token
-  local_dir: build
-  on:
-    branch: master
+  - npm test -- --coverage
+after_script: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"

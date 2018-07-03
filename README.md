@@ -1,6 +1,8 @@
 # react-weconnect
 
-[![Build Status](https://travis-ci.org/tibetegya/react-weconnect.svg?branch=master)](https://travis-ci.org/tibetegya/react-weconnect)
+[![Build Status](https://travis-ci.org/tibetegya/react-weconnect.svg?branch=develop)](https://travis-ci.org/tibetegya/react-weconnect)
+
+[![Coverage Status](https://coveralls.io/repos/github/tibetegya/react-weconnect/badge.svg?branch=develop)](https://coveralls.io/github/tibetegya/react-weconnect?branch=develop)
 
 This is the WeConnect client application it is built using [React.js](https://reactjs.org/)
 In order to run a working prototype of the application go to [WeConnect Portal](https://react-weconnect.herokuapp.com/)

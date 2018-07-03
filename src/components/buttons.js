@@ -1,7 +1,9 @@
 import React from 'react';
+import { isLoggedIn } from './utils';
 
 
-export function LoginButton(props) {
+export function RegisterButton(props) {
+  //returns a register button
     return (
 
         <li className="nav-item">
@@ -12,7 +14,8 @@ export function LoginButton(props) {
     );
   }
 
-  export function RegisterButton(props) {
+  export function LoginButton(props) {
+    //returns a login button
     return (
         <li className="nav-item">
         <a className="nav-link" href="/login">
@@ -23,12 +26,15 @@ export function LoginButton(props) {
     );
   }
 
-export function SearchButton(props) {
+export function BusinessesButton(props) {
+  //returns  businesses link
   return (
+    isLoggedIn()?
     <li className="nav-item" style={{marginRight: '2rem'}}>
     <a className="nav-link " href="/results">
     Businesses
     </a>
   </li>
+  : null
 );
 }

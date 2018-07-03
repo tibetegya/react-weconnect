@@ -59,9 +59,9 @@ body {
       -ms-flex-pack: center;
           justify-content: center; }
 .review-color{
-  background-color: aquamarine;
-  height: 3rem;
-  width: 3rem;
+  background-color: rgb(62, 151, 253);
+  height: 1.5rem;
+  width: 1.5rem;
 }
 .business-color{
   background-color: #333;

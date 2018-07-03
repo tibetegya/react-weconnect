@@ -18,9 +18,8 @@ class SettingsButton extends Component {
 
     logoutUser = e =>{
         e.preventDefault();
-        // console.log(localStorage.getItem('token'))
-        // console.log(this.state.token)
 
+        //logout the user
         if(localStorage.getItem('token')){
 
         axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
@@ -29,23 +28,21 @@ class SettingsButton extends Component {
 
       })
         .then( () => {
+            //update the state on successful logout
               this.setState({
                   token:'',
                   isLoggedIn: false
               });
+              //remove the token from localstorage and redirect to the home page
               localStorage.removeItem('token')
-              this.props.history.replace('/home');
-        }).catch( (error) =>{
-
-            console.log(error)
-            // localStorage.removeItem('token')
-        })
+              this.props.history.push('/');
+        }).catch( (error) =>{})
             }else{
+                //if no token exists redirect the user to login
             this.props.history.push('/login');
         }
       }
       render(){
-        //   console.log(this.state)
     return (
         <li className="nav-item">
         <div className="dropdown show">

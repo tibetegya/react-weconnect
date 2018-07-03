@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 
 import BusinessCard from './business';
 import Navbar from './navbar'
 import axios from 'axios';
 import { ROOT_URL } from '../App'
+
+import Notifications, {notify} from 'react-notify-toast';
+import { isLoggedIn } from './utils';
 
 class UserProfile extends Component {
   constructor(props){
@@ -18,7 +21,16 @@ class UserProfile extends Component {
 componentWillMount(){
   this.getUserBusinesses()
 }
+
+componentDidMount(){
+
+  //display message on successful business addition
+if (this.props.match.params.msg === 'success'){
+  notify.show('Business Added sucessfully', 'success')
+}
+}
 getUserBusinesses = ()=>{
+  //get the businesses created by a user
   axios.get(`${ROOT_URL}/businesses`, {
     params:{
       creator:'creator'
@@ -26,15 +38,13 @@ getUserBusinesses = ()=>{
     headers: {'Content-Type':'application/json','Authorization': 'Bearer '+this.state.token  }
 })
   .then(res => {
-        console.log(res);
-        console.log(res.data['businesses']);
         this.setState({businessData: res.data['businesses']})
   })
-  .catch(error =>{
-      console.log(error.response.data)
-  });
+  .catch(error =>{});
 }
 mapBusinesses = ()=>{
+
+  //if there are businesses in state map them to a business card
   if(this.state.businessData.length >= 1){
   return (this.state.businessData.map(business =>
     <BusinessCard key={business.id} name={business.business_name} category={business.category}
@@ -44,11 +54,11 @@ mapBusinesses = ()=>{
     }
 }
   render(){
-    console.log(this.state.businessData)
-    console.log('this is',this.state.token)
         return (
+          isLoggedIn() ?
           <div>
             <Navbar/>
+            <Notifications />
             <div className="jumbotron jumbotron-fluid">
             <div className="container">
               <div className="row">
@@ -96,7 +106,8 @@ mapBusinesses = ()=>{
       </div>
       </div>
       </div>
-        );
+        : <Redirect to={{pathname:'/login'}}/>
+      );
     }
 }
 export default withRouter(UserProfile);

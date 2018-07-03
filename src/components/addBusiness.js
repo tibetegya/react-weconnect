@@ -7,6 +7,7 @@ import Header from './header';
 import Navbar from './navbar'
 import { Redirect } from 'react-router-dom'
 import { isLoggedIn } from './utils';
+import { ROOT_URL } from '../App';
 
 export default class AddBusiness extends Component{
     constructor(props) {
@@ -40,7 +41,7 @@ export default class AddBusiness extends Component{
         // api call when submitting edited business data
 
           axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-        axios.put(`http://127.0.0.1:5000/api/v2/businesses/${this.props.match.params.id}`, JSON.stringify(businessData),
+        axios.put(`${ROOT_URL}/businesses/${this.props.match.params.id}`, JSON.stringify(businessData),
           {
               headers: {'Content-Type':'application/json' }
           })
@@ -53,7 +54,7 @@ export default class AddBusiness extends Component{
           //api call when adding a business for the first time
 
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-        axios.post(`http://127.0.0.1:5000/api/v2/businesses`, JSON.stringify(businessData),
+        axios.post(`${ROOT_URL}/businesses`, JSON.stringify(businessData),
           {
               headers: {'Content-Type':'application/json' }
           })
@@ -85,7 +86,7 @@ componentDidMount(){
     })
     //api call for pre-populating the business edit form
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-        axios.get(`http://127.0.0.1:5000/api/v2/businesses/${this.props.match.params.id}`,
+        axios.get(`${ROOT_URL}/businesses/${this.props.match.params.id}`,
           {
               headers: {'Content-Type':'application/json' }
           })

@@ -53,3 +53,4 @@ README 2.md
 WeConnect/
 package-lock.json
 .vscode/
+src/htmltojsx.html
