@@ -70,7 +70,7 @@ class Navbar extends Component {
           <a className="navbar-brand circular" href="/home">
             <img src={logo} width={40} height={40} className="d-inline-block align-center" alt='
             logo' style={{margin: '0 .5rem 0 0'}} />
-            <span>WeConnect</span>
+            <span id='weconnect'>WeConnect</span>
           </a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />

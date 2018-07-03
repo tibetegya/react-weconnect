@@ -116,7 +116,7 @@ import Notifications, {notify} from 'react-notify-toast';
 				<div className="row justify-content-md-center">
 					<div className="col-md-4">
 
-				<form onSubmit={this.handleSubmit}>
+				<form className='login' onSubmit={this.handleSubmit}>
 						<div className="form-group">
 							<label>User Name</label>
 							<input  onChange={this.handleInput} name="username" type="text"

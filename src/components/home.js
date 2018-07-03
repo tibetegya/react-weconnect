@@ -13,7 +13,6 @@ class Home extends Component {
     componentDidMount(){
         //displays message for successful business deletion
         if(this.props.match.params.msg === 'delete-success'){
-            console.log(this.props.match.params.msg)
             notify.show('Business Deleted sucessfully', 'success')
         }
 

@@ -20,11 +20,10 @@ class Search extends Component {
       searchBusiness: '',
       searchLocation: '',
       searchLimit: 10,
-      page: null,
+      page: 1,
       prevPage: null,
       nextPage: null,
-      businessData: [],
-      pageLinks : []
+      businessData: []
 
     };
   }
@@ -32,13 +31,12 @@ class Search extends Component {
     //update state if a token exists
     if(localStorage.getItem('token')){
       this.setState({
-        isLoggedIn: true,
         token: localStorage.getItem('token')
       })
   }
 
     setTimeout(()=> {
-      //api call to get businesses
+      //initial api call to get businesses
       axios.get(`${ROOT_URL}/businesses`, {
           headers: {'Content-Type':'application/json','Authorization': 'Bearer '+this.state.token }
       })
@@ -49,15 +47,6 @@ class Search extends Component {
                 nextPage: res.data['next_page']
 
             })
-            //add pagination links
-            let pageLinks = []
-            if (this.state.prevPage !== null){
-              pageLinks.push(<li key='prev' className="page-item" ><a className="page-link" href=""  name='prevPage' onClick={this.paginate} page={this.state.prevPage}>previous</a></li>)
-            }
-            if (this.state.nextPage !== null){
-              pageLinks.push(<li key='next' className="page-item"><a className="page-link" href=""  onClick={this.paginate} name={this.state.nextPage}>next</a></li>)
-            }
-          this.setState({pageLinks:pageLinks})
         })
         .catch(error =>{
           if(error.response.status === 401){
@@ -70,34 +59,26 @@ class Search extends Component {
 
   }
 
-  componentDidMount = ()=>{
-}
   handleSubmit = e => {
     e.preventDefault();
     this.submitData()
   }
 
   submitData = ()=>{
-    let parameters = {
-        q :this.state.searchBusiness,
-        location : this.state.searchLocation,
-        category: this.state.searchCategory,
-        page : this.state.page
-    }
 
     let searchParams = {}
       //check for existance of query strings and add them to search object
-      if (parameters.q !== ''){
-        searchParams.q = parameters.q
+      if (this.state.searchBusiness !== ''){
+        searchParams.q = this.state.searchBusiness
       }
-      if (parameters.location !== ''){
-        searchParams.location = parameters.location
+      if (this.state.searchLocation !== ''){
+        searchParams.location = this.state.searchLocation
       }
-      if (parameters.category !== ''){
-        searchParams.category = parameters.category
+      if (this.state.searchCategory !== ''){
+        searchParams.category = this.state.searchCategory
       }
-      if (parameters.page !== null){
-        searchParams.page = parameters.page
+      if (this.state.page !== 1){
+        searchParams.page = this.state.page
       }
 
       //api call to the search businesses endpoint
@@ -113,6 +94,7 @@ class Search extends Component {
       });
 
     }
+
 handleInput = e => {
     this.setState({[e.target.name]: e.target.value})
 }
@@ -120,9 +102,13 @@ handleInput = e => {
 paginate = e =>{
   //handles pagination of businesses
  e.preventDefault()
- console.log(e.target.name)
- this.setState({page: e.target.name})
- this.submitData()
+  if(e.target.name === 'nextPage'){
+    this.setState({page: this.state.nextPage})
+  }else if(e.target.name === 'prevPage'){
+      this.setState({page: this.state.prevPage})
+  }
+  this.submitData()
+
 }
   render(){
     let countryArray = this.state.countries
@@ -165,9 +151,15 @@ paginate = e =>{
                               location={business.location} profile={business.profile} id={business.id}/>
                         )}
         </div>
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example" style={{margin:'0 0 10rem 0'}}>
   <ul className="pagination justify-content-center">
-  {this.state.pageLinks.map(link => link)}
+  <li key='prev' className="page-item" >
+  <a className="page-link" href=""  name='prevPage'
+  onClick={this.paginate} >previous</a></li>
+
+  <li key='next' className="page-item">
+  <a className="page-link" href="" name='nextPage'
+  onClick={this.paginate} >next</a></li>
   </ul>
 </nav>
 
