@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { withRouter, Redirect } from 'react-router-dom'
 
-import BusinessCard from './business';
-import Navbar from './navbar'
+import BusinessCard from '../business/business';
+import Navbar from '../layout/navbar'
 import axios from 'axios';
-import { ROOT_URL } from '../App'
+import { ROOT_URL } from '../../App'
 
 import Notifications, {notify} from 'react-notify-toast';
-import { isLoggedIn } from './utils';
+import { isLoggedIn } from '../helpers/utils';
+import AddBusiness from '../business/addBusiness';
+import Profile from '../layout/profile'
 
 class UserProfile extends Component {
   constructor(props){
@@ -15,19 +17,29 @@ class UserProfile extends Component {
     this.state = {
       user: this.props.match.params.name,
       token: localStorage.getItem('token'),
-      businessData: []
+      businessData: [],
+      modal: false,
+      type: 'user',
+      businessName: '',
+      category: '',
+      businessAddress: '',
+      businessCity: '',
+      businessCountry: '',
+      description: '',
+      update: true
     }
+    this.toggle = this.toggle.bind(this);
   }
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
+
 componentWillMount(){
   this.getUserBusinesses()
 }
-
 componentDidMount(){
-
-  //display message on successful business addition
-if (this.props.match.params.msg === 'success'){
-  notify.show('Business Added sucessfully', 'success')
-}
 }
 getUserBusinesses = ()=>{
   //get the businesses created by a user
@@ -53,42 +65,46 @@ mapBusinesses = ()=>{
       return <div>You currently have no businesses</div>
     }
 }
-  render(){
+handleSubmit = e => {
+
+  console.log(' state',this.state)
+  e.preventDefault();
+
+  const businessData = {
+    business_name :this.state.businessName,
+    category : this.state.category,
+    location : this.state.businessAddress+' '+this.state.businessCity+' '+this.state.businessCountry,
+    profile: this.state.description
+  }
+
+    //api call when adding a business for the first time
+
+  axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+  axios.post(`${ROOT_URL}/businesses`, JSON.stringify(businessData),
+    {
+        headers: {'Content-Type':'application/json' }
+    })
+    .then(res => {
+      this.toggle()
+      notify.show('Business Added sucessfully', 'success')
+    })
+    .catch(error =>{
+    });
+  }
+
+handleInput = e => {
+  console.log(' state',this.state)
+//assign input values to state as they are being typed
+  this.setState({[e.target.name]: e.target.value})
+}
+render(){
+  console.log(this.state.modal)
         return (
           isLoggedIn() ?
           <div>
             <Navbar/>
             <Notifications />
-            <div className="jumbotron jumbotron-fluid">
-            <div className="container">
-              <div className="row">
-                <div className="col-md-12" style={{marginBottom: '3rem'}}>
-                  <div className="row align-items-center">
-                    <div className="col-md-2 "><div className="business-logo" style={{margin: '1rem 0 0 0'}} /></div> 
-                    <div className="col-md-6">
-
-                      <div className="business-title" style={{color: 'white', fontSize: '2rem', 
-                      margin: '1rem 0 0 0'}}>
-                      <span className="display-4 circular" style={{color: 'white', 
-                      fontSize: '2rem'}}>{this.state.user}</span>
-                      </div>
-
-                      <div className="row">
-                        <div style={{display: 'flex'}}>
-                          <a className="nav-link" href={"/add-business/"+this.props.match.params.name}>
-                          <button className="btn btn-success my-2 my-sm-0 align-items-center" 
-                          style={{fontSize: '1rem', padding: '.6rem'}}>Add a business</button>
-                          </a>
-                          </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> 
-          </div>
-
+            <Profile type={this.state.type} toggle={this.toggle} user={this.state.user}/>
           <div className="container">
           <div className="row">
             <div className="col-md-12 " style={{marginBottom: '2rem'}}>
@@ -103,11 +119,12 @@ mapBusinesses = ()=>{
             <div className="col-md-12">
             {this.mapBusinesses() }
             </div>
+            <AddBusiness isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} handleSubmit={this.handleSubmit} handleInput={this.handleInput}/>
       </div>
       </div>
       </div>
         : <Redirect to={{pathname:'/login'}}/>
       );
-    }
+}
 }
 export default withRouter(UserProfile);

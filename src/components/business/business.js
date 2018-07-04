@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 
 export default class BusinessCard extends Component {
-  constructor(props) {
+constructor(props) {
     super(props);
     this.state = {
       hasData: false,
@@ -12,8 +12,8 @@ export default class BusinessCard extends Component {
       location: ''
 
     };
-  }
-  componentWillMount =()=>{
+}
+componentWillMount =()=>{
     this.setState({
       hasData: ()=>{
         //checks if props has business name
@@ -27,7 +27,7 @@ export default class BusinessCard extends Component {
       profile: this.props.profile,
       location: this.props.location
     });
-  }
+}
 render(){
   if (this.state.hasData ){
     //renders a card if the business has data and nothing if it does not
@@ -59,5 +59,5 @@ render(){
     }else{
       return null;
     }
-  }
+}
 }

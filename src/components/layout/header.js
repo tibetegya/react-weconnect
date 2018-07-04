@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class Header extends Component {
-    constructor(props) {
+constructor(props) {
         super(props);
         this.state = {
             textColor: 'black',
@@ -10,15 +10,15 @@ class Header extends Component {
 
 
         };
-      }
-    componentWillMount =()=>{
+}
+componentWillMount =()=>{
         this.setState({
             textColor: this.props.color,
             heading: this.props.heading,
             text: this.props.text
         });
-    }
-    render(){
+}
+render(){
         //returns header component
         return (
             <div className="main row">
@@ -29,7 +29,6 @@ class Header extends Component {
                 </div> 
           </div>
         );
-    };
-    
-    }
-    export default Header;
+}
+}
+export default Header;

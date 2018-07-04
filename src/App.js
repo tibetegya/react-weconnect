@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Home from './components/home';
+import Home from './components/layout/home';
 import Layout from './layout';
-import Login from './components/login';
-import Register from './components/register';
-import BusinessProfile from './components/business-profile';
-import UserProfile from './components/user-profile';
-import AddReview from './components/addReview';
-import AddBusiness from './components/addBusiness';
-import Results from './components/results'
+import Login from './components/auth/login';
+import Register from './components/auth/register';
+import BusinessProfile from './components/business/business-profile';
+import UserProfile from './components/auth/user-profile';
+import AddReview from './components/business/addReview';
+import AddBusiness from './components/business/addBusiness';
+import Results from './components/business/results'
 
 
-export const ROOT_URL = 'https://weconnect-tibe.herokuapp.com/api/v2';
+export const ROOT_URL = 'http://127.0.0.1:5000/api/v2';
 const Routes = () => (
   <Router>
     <div>

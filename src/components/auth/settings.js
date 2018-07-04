@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { ROOT_URL } from '../App';
+import { ROOT_URL } from '../../App';
 import { withRouter } from 'react-router-dom'
 
 class SettingsButton extends Component {
 
-    constructor(props) {
+constructor(props) {
         super(props);
         this.state = {
             isLoggedIn: this.props.logout.isLoggedIn,
@@ -14,10 +14,9 @@ class SettingsButton extends Component {
 
 
         };
-      }
-
-    logoutUser = e =>{
-        e.preventDefault();
+}
+logoutUser = e =>{
+    e.preventDefault();
 
         //logout the user
         if(localStorage.getItem('token')){
@@ -41,8 +40,8 @@ class SettingsButton extends Component {
                 //if no token exists redirect the user to login
             this.props.history.push('/login');
         }
-      }
-      render(){
+}
+render(){
     return (
         <li className="nav-item">
         <div className="dropdown show">
@@ -58,6 +57,6 @@ class SettingsButton extends Component {
         </div>
         </li>
     );
-  }
+}
 }
 export default withRouter(SettingsButton);

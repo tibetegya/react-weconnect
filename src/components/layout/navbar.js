@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-import logo from '../css/Images/logo.svg';
-import SettingsButton from './settings'
-import { LoginButton,  RegisterButton, BusinessesButton } from './buttons'
+import logo from '../../css/Images/logo.svg';
+import SettingsButton from '../auth/settings'
+import { LoginButton,  RegisterButton, BusinessesButton } from './../layout/buttons'
 import { withRouter } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 
 class Navbar extends Component {
-  constructor(props) {
+constructor(props) {
     super(props);
     this.state = {
         navClass: '',
@@ -18,8 +18,8 @@ class Navbar extends Component {
 
 
     };
-  }
-  componentWillMount (){
+}
+componentWillMount (){
     //decode token to get the user
     if(localStorage.getItem('token')){
       let decoded_user = jwt_decode(localStorage.getItem('token'));
@@ -40,16 +40,16 @@ class Navbar extends Component {
       page: this.props.page
 
     });
-  }
-  componentWillUnmount =()=>{
+}
+componentWillUnmount =()=>{
     this.setState({
       page: ''
 
     })
-  }
+}
 
-  render(){
-  
+render(){
+
     let navClassName = "navbar navbar-expand-lg navbar-dark "+this.state.navClass;
     const isLoggedIn = this.state.isLoggedIn;
       let button;
@@ -84,7 +84,7 @@ class Navbar extends Component {
       </nav>
 
     );
-  };
+};
 
 }
 export default withRouter(Navbar);

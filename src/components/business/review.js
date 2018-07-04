@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 
 export default class ReviewCard extends Component{
-  constructor(props){
+constructor(props){
     super(props)
     this.state ={
       title: '',
@@ -11,8 +11,8 @@ export default class ReviewCard extends Component{
       creationDate: '',
       showCard: false
     }
-  }
-  componentWillMount(){
+}
+componentWillMount(){
     if (this.props.title !== undefined){
       this.setState({
         title: this.props.title,
@@ -23,8 +23,8 @@ export default class ReviewCard extends Component{
       })
     }
     
-  }
-  render(){
+}
+render(){
   if (this.state.showCard){
     return(
         <div className="col centery">
@@ -50,5 +50,5 @@ export default class ReviewCard extends Component{
   }else{
     return null;
   }
-  }
+}
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { isLoggedIn } from './utils';
+import { isLoggedIn } from './../helpers/utils';
 
 
 export function RegisterButton(props) {
@@ -12,9 +12,8 @@ export function RegisterButton(props) {
         </a>
     </li>
     );
-  }
-
-  export function LoginButton(props) {
+}
+export function LoginButton(props) {
     //returns a login button
     return (
         <li className="nav-item">
@@ -24,8 +23,7 @@ export function RegisterButton(props) {
         </a>
         </li>
     );
-  }
-
+}
 export function BusinessesButton(props) {
   //returns  businesses link
   return (

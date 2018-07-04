@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import Navbar from './navbar'
-import Header from './header';
-import { ROOT_URL } from '../App'
+import Navbar from '../layout/navbar'
+import Header from './../layout/header';
+import { ROOT_URL } from '../../App'
 import { withRouter } from "react-router-dom";
 import Notifications, {notify} from 'react-notify-toast';
 
  class Login extends Component{
 
-	constructor(props) {
+constructor(props) {
 		super(props);
 		this.state = {
 			username: '',
@@ -19,9 +19,9 @@ import Notifications, {notify} from 'react-notify-toast';
 			newPassword :'',
 			confirmNewPassword: ''
 		};
-	  }
+}
 
-	handleSubmit = e => {
+handleSubmit = e => {
 		e.preventDefault();
 		//check for empty fields before submitting
 		if (this.state.username === ''){
@@ -55,8 +55,8 @@ import Notifications, {notify} from 'react-notify-toast';
 			notify.show(error.response.data.message, 'error')
 		  })
 		}
-	}
-	handleInput = e => {
+}
+handleInput = e => {
 		this.setState({[e.target.name]: e.target.value})
 		//check for password confirmation
 		if(e.target.name === 'confirmNewPassword'){
@@ -69,8 +69,8 @@ import Notifications, {notify} from 'react-notify-toast';
                 notify.show('Password does not match', 'error')
 			}
 		}
-	}
-	handlePasswordReset = e =>{
+}
+handlePasswordReset = e =>{
 		e.preventDefault();
 		//check for empty feilds before password reset is submitted
 		if (this.state.emailForReset === ''){
@@ -97,14 +97,14 @@ import Notifications, {notify} from 'react-notify-toast';
 			  })
 		}
 
-	}
-	componentDidMount(){
+}
+componentDidMount(){
 		//display message upon sucessful registration
 		if(this.props.match.params.msg){
             notify.show('You are registered sucessfully', 'success')
         }
-	}
-	render(){
+}
+render(){
 	return(
 		<div>
 		<Notifications options={{zIndex: 20000}} />
@@ -176,6 +176,6 @@ import Notifications, {notify} from 'react-notify-toast';
 				</div>
 	</div>
 	);
-	}
+}
 }
 export default withRouter(Login);

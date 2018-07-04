@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Header from './header';
-import { ROOT_URL } from '../App'
-import Navbar from './navbar'
+import Header from '../layout/header';
+import { ROOT_URL } from '../../App'
+import Navbar from '../layout/navbar'
 import { withRouter } from "react-router-dom";
 import Notifications, {notify} from 'react-notify-toast';
 
  class Register extends Component{
 
-    constructor(props) {
+constructor(props) {
         super(props);
         this.state = {
             username: '',
@@ -20,7 +20,7 @@ import Notifications, {notify} from 'react-notify-toast';
         };
       }
 
-    handleSubmit = e => {
+handleSubmit = e => {
         e.preventDefault();
         //check for empty fields
         if (this.state.username === ''){
@@ -50,8 +50,8 @@ import Notifications, {notify} from 'react-notify-toast';
           .catch(error =>{
           });
         }
-    }
-    handleInput = e => {
+}
+handleInput = e => {
 
         //update state as user inputs data
         this.setState({[e.target.name]: e.target.value})
@@ -67,9 +67,9 @@ import Notifications, {notify} from 'react-notify-toast';
                 notify.show('Password does not match', 'error')
             }
         }
-    }
+}
 
-    render(){
+render(){
     return(
         <div>
              <Notifications />

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 
 import Jumbotron from './jumbotron';
-import Header from './header';
-import Navbar from './navbar';
+import Header from './../layout/header';
+import Navbar from './../layout/navbar';
 import Notifications, {notify} from 'react-notify-toast';
-import shopify from "../assets/shopify.svg"
-import slack from "../assets/slack.svg"
-import kickstarter from "../assets/kickstarter.svg"
-import lyft from "../assets/lyft.svg"
+import shopify from "../../assets/shopify.svg"
+import slack from "../../assets/slack.svg"
+import kickstarter from "../../assets/kickstarter.svg"
+import lyft from "../../assets/lyft.svg"
 
 class Home extends Component {
-    componentDidMount(){
+componentDidMount(){
         //displays message for successful business deletion
         if(this.props.match.params.msg === 'delete-success'){
             notify.show('Business Deleted sucessfully', 'success')
@@ -21,7 +21,7 @@ class Home extends Component {
             notify.show('Sucessfully logged in', 'success', 1000)
         }
 }
-    render(){
+render(){
         let slogan = `WeConnect provides a platform that brings businesses and individuals together 
         And creates awareness for businesses through user reviews`
         return (
@@ -54,6 +54,6 @@ class Home extends Component {
 
         </div>
         );
-    }
+}
 }
 export default Home;
