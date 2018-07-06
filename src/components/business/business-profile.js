@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { isLoggedIn } from './../helpers/utils';
 import ReviewCard from './../business/review';
 import Navbar from './../layout/navbar'
@@ -28,7 +28,10 @@ constructor(props){
       businessAddress: '',
       businessCity: '',
       businessCountry: '',
-      description: ''
+      description: '',
+      title: '',
+      body: ''
+
     }
     this.toggleReview = this.toggleReview.bind(this);
     this.toggleBusiness = this.toggleBusiness.bind(this);
@@ -48,15 +51,6 @@ componentDidMount(){
     //fetch business business and its review data when the page is rendered
     this.getBusinessData()
     this.getReviewsData()
-    //display a message on sucessful addition of a review
-    if (this.props.match.params.msg === 'review-success'){
-      notify.show('Review Added sucessfully', 'success')
-    }
-}
-componentWillUpdate(){
-      //fetch business business and its review data when the page is re rendered
-      // this.getBusinessData()
-      // this.getReviewsData()
 }
 actionButton = ()=>{
     //checks whether logged in user owns that particular business.
@@ -106,7 +100,8 @@ getBusinessData =()=>{
                 })
           })
           .catch(error =>{
-            login(this, error)});
+          }
+          );
 }
 getReviewsData =()=>{
     //fetches all reviews for the business
@@ -121,7 +116,7 @@ getReviewsData =()=>{
                 })
           })
           .catch(error =>{
-            login(this, error)
+            // login(this, error)
           });
 }
 mapReviews = ()=>{
@@ -135,8 +130,9 @@ mapReviews = ()=>{
         return <div>This Business has no reviews</div>
       }
 }
-handleBusinessDelete =() =>{
+handleBusinessDelete = e =>{
     //maps each business to a card
+    e.preventDefault();
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
     axios.delete(`${ROOT_URL}/businesses/${this.props.match.params.id}`, 
@@ -147,14 +143,28 @@ handleBusinessDelete =() =>{
             this.props.history.push('/home/delete-success')
       })
       .catch(error =>{
-        login(this, error)
+        // login(this, error)
       });
 }
 
 handleSubmit = e => {
 
-  console.log(' state',this.state)
   e.preventDefault();
+  //check for empty fields before submitting
+  if (this.state.businessName.trim() === ''){
+    notify.show('Business Name is missing', 'error')
+  }else if (this.state.category === ''){
+    notify.show('You must select a Category', 'error')
+  }else if (this.state.businessCountry === ''){
+    notify.show('You must select a Country', 'error')
+  }else if (this.state.businessCity.trim() === ''){
+    notify.show('City is missing', 'error')
+  }else if (this.state.businessAddress.trim() === ''){
+    notify.show('business Address is missing', 'error')
+  }else if (this.state.description.trim() === ''){
+    notify.show('Description is missing', 'error')
+  }else{
+
 
   const businessData = {
     business_name :this.state.businessName,
@@ -170,31 +180,70 @@ handleSubmit = e => {
         headers: {'Content-Type':'application/json' }
     })
     .then(res => {
-      console.log(res)
         this.toggleBusiness()
+        this.componentDidMount()
         notify.show('Business Editted sucessfully', 'success')
     })
     .catch(error =>{
 
-      console.log(error.response)
     });
 
+  }
+}
+
+handleSubmitReview = e => {
+  e.preventDefault();
+  //check for empty feilds before submitting
+  if (this.state.title === '' || this.state.body === ''){
+      notify.show('Add a review before submission', 'error')
+  }
+  else{
+  const reviewData = {
+    title :this.state.title,
+    body : this.state.body
+  }
+  //post the submitted review
+  axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+  axios.post(`${ROOT_URL}/businesses/${this.state.businessId}/reviews`, JSON.stringify(reviewData), 
+    {
+        headers: {'Content-Type':'application/json' }
+    })
+    .then(res => {
+        notify.show('Review Added sucessfully', 'success')
+        this.toggleReview()
+        this.componentDidMount()
+    })
+    .catch(error =>{
+      notify.show('Review not Added', 'error')
+    });
+  }
 }
 handleInput = e => {
-  console.log(' state',this.state)
 //assign input values to state as they are being typed
   this.setState({[e.target.name]: e.target.value})
+
+  if(e.target.name === 'title'){
+    if(e.target.value !==undefined && e.target.value.length > 50){
+    notify.show('review title is too long', 'warning')
+    e.target.value = e.target.value.slice(0, 50);
+    }
+  }
+    if(e.target.name === 'body'){
+      if(e.target.value !==undefined && e.target.value.length > 255){
+      notify.show('review body is too long', 'warning')
+      e.target.value = e.target.value.slice(0, 255);
+      }
+  }
 }
 render(){
-  console.log(' state',this.state)
         return (
           isLoggedIn()?
           <div>
             <Navbar/>
-            <Notifications />
+            {/* <Notifications options={{zIndex: 20000}}/> */}
         <Profile type={this.state.type} businessName={this.state.business.business_name} 
         location={this.state.business.location} category={this.state.business.category} actionButton={this.actionButton}/>
-      <div className="container">
+      <div className="container business-profile">
       <div className="row">
         <div className="col-md-12 " style={{marginBottom: '2rem'}}>
           <ul className="nav nav-tabs">
@@ -222,16 +271,20 @@ render(){
       </div>
       <div className="modal-footer">
         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button onClick={this.handleBusinessDelete} type="button" className="btn btn-danger" data-dismiss="modal">Delete Business</button>
+        <button id='business-delete'onClick={this.handleBusinessDelete} type="button" className="btn btn-danger" data-dismiss="modal">Delete Business</button>
       </div>
     </div>
   </div>
 </div>
-<AddReview isOpen={this.state.modalReview} toggle={this.toggleReview} className={this.props.className} businessId={this.state.businessId}/>
+<AddReview isOpen={this.state.modalReview} toggle={this.toggleReview} 
+className={this.props.className} businessId={this.state.businessId}
+handleInput={this.handleInput} handleSubmit={this.handleSubmitReview}/>
+
+{/* CALL MODAL WHEN EDITTING BUSINESS*/ }
 <AddBusiness isOpen={this.state.modalBusiness} toggle={this.toggleBusiness} business={this.state.business}
 className={this.props.className} businessName={this.state.business.business_name} profile={this.state.business.profile}
 category={this.state.business.category} location={this.state.business.location} handleInput={this.handleInput}
-handleSubmit={this.handleSubmit}/>
+handleSubmit={this.handleSubmit} type="Edit" />
 
       </div>
       : <Redirect to={{pathname:'/login'}}/>
@@ -239,4 +292,4 @@ handleSubmit={this.handleSubmit}/>
 }
 }
 
-export default withRouter(BusinessProfile);
+export default BusinessProfile;

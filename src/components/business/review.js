@@ -25,9 +25,8 @@ componentWillMount(){
     
 }
 render(){
-  if (this.state.showCard){
     return(
-        <div className="col centery">
+        <div className="col centery ReviewCard">
         <div className="card col-md-6" style={{margin: '0 0 2rem 0'}}>
           <div className="card-body">
             <div className="col-12" style={{display: 'flex'}}>
@@ -47,8 +46,5 @@ render(){
         </div>
       </div>
     );
-  }else{
-    return null;
-  }
 }
 }

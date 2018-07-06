@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { ROOT_URL } from '../../App';
 import { withRouter } from 'react-router-dom'
+import {isLoggedIn} from '../helpers/utils'
 
 class SettingsButton extends Component {
 
@@ -43,7 +44,8 @@ logoutUser = e =>{
 }
 render(){
     return (
-        <li className="nav-item">
+        isLoggedIn()?
+        <li className="nav-item" id='settings'>
         <div className="dropdown show">
             <a className=" nav-link btn btn-dark my-2 my-sm-0 dropdown-toggle" style={{paddingLeft:'1rem', paddingRight:'1rem'}}
             role="button" id="dropdownMenuLink" 
@@ -56,6 +58,7 @@ render(){
             </div>
         </div>
         </li>
+        :null
     );
 }
 }

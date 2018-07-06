@@ -16,7 +16,7 @@ export function RegisterButton(props) {
 export function LoginButton(props) {
     //returns a login button
     return (
-        <li className="nav-item">
+        <li className="nav-item login-button">
         <a className="nav-link" href="/login">
         <button className="btn btn-outline-light my-2 my-sm-0" 
         style={{paddingRight: '1.3rem', paddingLeft: '1.3rem'}}>Login</button>

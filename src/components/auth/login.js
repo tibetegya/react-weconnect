@@ -4,7 +4,6 @@ import axios from 'axios';
 import Navbar from '../layout/navbar'
 import Header from './../layout/header';
 import { ROOT_URL } from '../../App'
-import { withRouter } from "react-router-dom";
 import Notifications, {notify} from 'react-notify-toast';
 
  class Login extends Component{
@@ -100,14 +99,14 @@ handlePasswordReset = e =>{
 }
 componentDidMount(){
 		//display message upon sucessful registration
-		if(this.props.match.params.msg){
-            notify.show('You are registered sucessfully', 'success')
-        }
+		// if(this.props.match.params.msg){
+        //     notify.show('You are registered sucessfully', 'success')
+        // }
 }
 render(){
 	return(
 		<div>
-		<Notifications options={{zIndex: 20000}} />
+		{/* <Notifications options={{zIndex: 20000}} /> */}
 			<Navbar page="userlogger"/>
 				<div className="container">
 
@@ -169,7 +168,7 @@ render(){
 						</div>
 						<div className="modal-footer">
 							<button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-							<button onClick={this.handlePasswordReset} type="button" className="btn btn-primary" data-dismiss="modal" >Reset Password</button>
+							<button id="buttonForReset" onClick={this.handlePasswordReset} type="button" className="btn btn-primary" data-dismiss="modal" >Reset Password</button>
 						</div>
 					</div>
 				</div>
@@ -178,4 +177,4 @@ render(){
 	);
 }
 }
-export default withRouter(Login);
+export default Login;

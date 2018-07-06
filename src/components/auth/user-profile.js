@@ -15,7 +15,7 @@ class UserProfile extends Component {
   constructor(props){
     super(props)
     this.state = {
-      user: this.props.match.params.name,
+      user: '',
       token: localStorage.getItem('token'),
       businessData: [],
       modal: false,
@@ -25,8 +25,7 @@ class UserProfile extends Component {
       businessAddress: '',
       businessCity: '',
       businessCountry: '',
-      description: '',
-      update: true
+      description: ''
     }
     this.toggle = this.toggle.bind(this);
   }
@@ -40,6 +39,10 @@ componentWillMount(){
   this.getUserBusinesses()
 }
 componentDidMount(){
+  this.setState({
+    user: this.props.match.params.name
+  })
+  this.getUserBusinesses()
 }
 getUserBusinesses = ()=>{
   //get the businesses created by a user
@@ -67,8 +70,21 @@ mapBusinesses = ()=>{
 }
 handleSubmit = e => {
 
-  console.log(' state',this.state)
   e.preventDefault();
+  if (this.state.businessName.trim() === ''){
+    notify.show('Business Name is missing', 'error')
+  }else if (this.state.category === ''){
+    notify.show('You must select a Category', 'error')
+  }else if (this.state.businessCountry === ''){
+    notify.show('You must select a Country', 'error')
+  }else if (this.state.businessCity.trim() === ''){
+    notify.show('City is missing', 'error')
+  }else if (this.state.businessAddress.trim() === ''){
+    notify.show('business Address is missing', 'error')
+  }else if (this.state.description.trim() === ''){
+    notify.show('Description is missing', 'error')
+  }else{
+
 
   const businessData = {
     business_name :this.state.businessName,
@@ -86,26 +102,25 @@ handleSubmit = e => {
     })
     .then(res => {
       this.toggle()
+      this.componentDidMount()
       notify.show('Business Added sucessfully', 'success')
     })
     .catch(error =>{
     });
   }
-
+}
 handleInput = e => {
-  console.log(' state',this.state)
 //assign input values to state as they are being typed
   this.setState({[e.target.name]: e.target.value})
 }
 render(){
-  console.log(this.state.modal)
         return (
           isLoggedIn() ?
           <div>
             <Navbar/>
-            <Notifications />
+            {/* <Notifications options={{zIndex: 20000}}/> */}
             <Profile type={this.state.type} toggle={this.toggle} user={this.state.user}/>
-          <div className="container">
+          <div className="container user-profile">
           <div className="row">
             <div className="col-md-12 " style={{marginBottom: '2rem'}}>
               <ul className="nav nav-tabs">
@@ -119,7 +134,7 @@ render(){
             <div className="col-md-12">
             {this.mapBusinesses() }
             </div>
-            <AddBusiness isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} handleSubmit={this.handleSubmit} handleInput={this.handleInput}/>
+            <AddBusiness type="Add"  isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} handleSubmit={this.handleSubmit} handleInput={this.handleInput}/>
       </div>
       </div>
       </div>
@@ -127,4 +142,4 @@ render(){
       );
 }
 }
-export default withRouter(UserProfile);
+export default UserProfile;

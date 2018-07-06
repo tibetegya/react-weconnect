@@ -14,16 +14,3 @@ export const isLoggedIn = ()=>{
     }
 }
 export default login
-
-export const splitter = string =>{
-    let stringArr = string.split(' ');
-    if (stringArr.length >1){
-        return {
-            street:stringArr[0],
-            city: stringArr[1],
-            country: stringArr[2]
-        }
-    }else{
-        return stringArr[0]
-    }
-}

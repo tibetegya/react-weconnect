@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import logo from '../../css/Images/logo.svg';
 import SettingsButton from '../auth/settings'
 import { LoginButton,  RegisterButton, BusinessesButton } from './../layout/buttons'
-import { withRouter } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 
 class Navbar extends Component {
@@ -87,4 +86,4 @@ render(){
 };
 
 }
-export default withRouter(Navbar);
+export default Navbar;

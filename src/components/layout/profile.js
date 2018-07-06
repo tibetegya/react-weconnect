@@ -1,38 +1,36 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 
-export default class Profile extends Component {
-
-render(){
+ function Profile (props){
     let type = ()  => {
-            if(this.props.type === 'user'){
+            if(props.type === 'user'){
                 return(
                     <div className="col-md-6">
 
-                      <div className="business-title" style={{color: 'white', fontSize: '2rem', 
+                      <div className="business-title user-profile" style={{color: 'white', fontSize: '2rem', 
                       margin: '1rem 0 0 0'}}>
                       <span className="display-4 circular" style={{color: 'white', 
-                      fontSize: '2rem'}}>{this.props.user}</span>
+                      fontSize: '2rem'}}>{props.user}</span>
                       </div>
 
                       <div className="row">
                         <div style={{display: 'flex'}}>
                           <a className="nav-link" >
 
-                          <Button color="success" onClick={this.props.toggle}>Add a business</Button>
+                          <Button color="success" onClick={props.toggle}>Add a business</Button>
                           </a>
                           </div>
                       </div>
 
                     </div>
                 );
-            }else if(this.props.type === 'business'){
+            }else if(props.type === 'business'){
                 return(
                     <div className="col-md-6">
-                  <div className="business-title" style={{color: 'white', 
+                  <div className="business-title business-profile" style={{color: 'white', 
                   fontSize: '2rem', margin: '1rem 0 0 0'}}>
                   <span className="display-4 circular" 
-                  style={{color: 'white', fontSize: '2rem'}}>{this.props.businessName}</span>
+                  style={{color: 'white', fontSize: '2rem'}}>{props.businessName}</span>
                   </div> 
                   <div className="row">
                     <div className="col">
@@ -44,7 +42,7 @@ render(){
                       <div className="business-location-text" 
                       style={{margin: '0rem 0 0 0'}}>
                       <span className="fira" 
-                      style={{color: 'white', fontSize: '1rem'}}>{this.props.location}</span>
+                      style={{color: 'white', fontSize: '1rem'}}>{props.location}</span>
                       </div> 
                     </div>
                     <div className="col">
@@ -55,12 +53,12 @@ render(){
                       </div> 
                       <div className="business-location-text" 
                       style={{margin: '0rem 0 0 0'}}>
-                      <span className="dfira" style={{color: 'white', fontSize: '1rem'}}>{this.props.category}</span>
+                      <span className="dfira" style={{color: 'white', fontSize: '1rem'}}>{props.category}</span>
                       </div> 
                     </div>
                     <div className="w-100" />
                     <div className="col" style={{display: 'flex'}}>
-                      {this.props.actionButton()}
+                      {props.actionButton()}
                     </div>
                   </div>
                 </div>
@@ -68,7 +66,7 @@ render(){
             }
     }
     return(
-        <div className="jumbotron jumbotron-fluid">
+        <div className="jumbotron jumbotron-fluid block-profile">
         <div className="container">
           <div className="row">
             <div className="col-md-12" style={{marginBottom: '3rem'}}>
@@ -82,4 +80,5 @@ render(){
       </div>
     );
 }
-}
+
+export default Profile

@@ -6,9 +6,8 @@ import Login from './components/auth/login';
 import Register from './components/auth/register';
 import BusinessProfile from './components/business/business-profile';
 import UserProfile from './components/auth/user-profile';
-import AddReview from './components/business/addReview';
-import AddBusiness from './components/business/addBusiness';
 import Results from './components/business/results'
+import Notifications from 'react-notify-toast'
 
 
 export const ROOT_URL = 'http://127.0.0.1:5000/api/v2';
@@ -26,9 +25,6 @@ const Routes = () => (
       <Route exact strict path={"/user-profile/:name/:msg"} component={UserProfile}/>
       <Route exact strict path={"/business-profile/:id"} component={BusinessProfile}/>
       <Route exact strict path={"/business-profile/:id/:msg"} component={BusinessProfile}/>
-      <Route exact strict path={"/add-review/:id"} component={AddReview}/>
-      <Route exact strict path={"/add-business/:user"} component={AddBusiness}/>
-      <Route exact strict path={"/edit-business/:id"} component={AddBusiness}/>
     </div>
   </Router>
 )
@@ -38,6 +34,7 @@ class App extends Component {
   render() {
     return (
       <Layout>
+        <Notifications options={{zIndex: 20000}}/>
         <Routes/>
         </Layout>
     );

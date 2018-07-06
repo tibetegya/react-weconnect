@@ -17,12 +17,12 @@ export default class Results extends Component {
           page: 1,
           prevPage: null,
           nextPage: null,
-          businessData: []
+          businessData: [],
         };
     }
 componentDidMount(){
     this.getBusinesses()
-}
+    }
 
 
 getBusinesses(search={}){
@@ -31,7 +31,7 @@ getBusinesses(search={}){
         params: search,
         headers: {'Content-Type':'application/json','Authorization': 'Bearer '+localStorage.getItem('token') }
     })
-    .then(res => {
+    .then( res => {
             this.setState({
             businessData: res.data['businesses'],
             prevPage: res.data['prev_page'],
@@ -76,19 +76,16 @@ paginate = e =>{
       //handles pagination of businesses
      e.preventDefault()
 
-     console.log('before',this.state.page)
     if(e.target.name === 'nextPage'){
         this.setState({page: this.state.nextPage})
       }else if(e.target.name === 'prevPage'){
           this.setState({page: this.state.prevPage})
       }
-
-     console.log('after',this.state.page)
       this.submitData()
     }
 render(){
         return (
-            <div>
+            <div className="results">
                 <Navbar navClass="sticky-top shadow"/>
             <div className="container" style={{ marginTop: '4rem'}}>
                 <Search handleSubmit={this.handleSubmit} handleInput={this.handleInput}/>
@@ -101,7 +98,6 @@ render(){
             />
         )}
         </div>
-        
         </div>
             <Paginator paginate={this.paginate} prevPage={this.state.prevPage}  nextPage={this.state.nextPage}/>
             </div>

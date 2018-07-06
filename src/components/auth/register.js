@@ -3,7 +3,6 @@ import axios from 'axios';
 import Header from '../layout/header';
 import { ROOT_URL } from '../../App'
 import Navbar from '../layout/navbar'
-import { withRouter } from "react-router-dom";
 import Notifications, {notify} from 'react-notify-toast';
 
  class Register extends Component{
@@ -72,7 +71,7 @@ handleInput = e => {
 render(){
     return(
         <div>
-             <Notifications />
+             {/* <Notifications /> */}
         <Navbar page="userlogger"/>
 
         <div className="container">
@@ -80,7 +79,7 @@ render(){
               the industry Don't be left behind. The time is now"/>
         <div className="row justify-content-md-center">
             <div className="col-md-5">
-                <form onSubmit={this.handleSubmit} className="needs-validation">
+                <form onSubmit={this.handleSubmit} className="needs-validation register">
                     <div className="form-group">
                         <label htmlFor="formGroupExampleInput2">Enter Username</label>
                         <input onChange={this.handleInput} name="username" type="text"
@@ -116,4 +115,4 @@ render(){
     );
 }
 }
-export default withRouter(Register);
+export default Register;
