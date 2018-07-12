@@ -4,6 +4,8 @@ import logo from '../../css/Images/logo.svg';
 import SettingsButton from '../auth/Settings'
 import { LoginButton,  RegisterButton, BusinessesButton } from './Buttons'
 import jwt_decode from 'jwt-decode';
+import axios from 'axios';
+import { ROOT_URL } from '../../App';
 
 class Navbar extends Component {
 constructor(props) {

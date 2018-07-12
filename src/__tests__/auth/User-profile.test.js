@@ -6,7 +6,7 @@ import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter';
 import {notify} from 'react-notify-toast'
 import {ROOT_URL} from '../../App'
-import BusinessCard from '../../components/business/Business'
+import BusinessCard from '../../components/business/BusinessCard'
 
 describe('UserProfile Component', () => {
 

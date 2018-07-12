@@ -1,8 +1,4 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { ROOT_URL } from '../../App';
-import { withRouter } from 'react-router-dom'
-import {isLoggedIn} from '../helpers/Utils'
+import React  from 'react';
 
 function SettingsButton (props){
     return (

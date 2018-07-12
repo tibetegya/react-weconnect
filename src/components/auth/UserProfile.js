@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { withRouter, Redirect } from 'react-router-dom'
+import React, {Component} from 'react';
+import { Redirect } from 'react-router-dom'
 
-import BusinessCard from '../business/Business';
+import BusinessCard from '../business/BusinessCard';
 import Navbar from '../layout/Navbar'
 import axios from 'axios';
 import { ROOT_URL } from '../../App'
 
-import Notifications, {notify} from 'react-notify-toast';
+import {notify} from 'react-notify-toast';
 import { isLoggedIn } from '../helpers/Utils';
 import AddBusiness from '../business/AddBusiness';
 import Profile from '../layout/Profile'

@@ -5,10 +5,9 @@ import ReviewCard from './ReviewCard';
 import Navbar from '../layout/Navbar'
 import axios from 'axios'
 import { ROOT_URL } from '../../App'
-import Notifications, {notify} from 'react-notify-toast';
+import {notify} from 'react-notify-toast';
 import jwt_decode from 'jwt-decode';
 import AddReview from './AddReview';
-import login from '../helpers/Utils'
 import AddBusiness from './AddBusiness';
 import Profile from '../layout/Profile'
 import { Button } from 'reactstrap';

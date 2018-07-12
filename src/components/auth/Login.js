@@ -4,7 +4,7 @@ import axios from 'axios';
 import Navbar from '../layout/Navbar'
 import Header from '../layout/Header';
 import { ROOT_URL } from '../../App'
-import Notifications, {notify} from 'react-notify-toast';
+import {notify} from 'react-notify-toast';
 
  class Login extends Component{
 

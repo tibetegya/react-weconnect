@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { ROOT_URL } from '../../App';
-import BusinessCard from './Business';
+import BusinessCard from './BusinessCard';
 import Search from './Search'
 import Navbar from '../layout/Navbar'
 import Paginator from '../layout/Paginator';

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Jumbotron from './Jumbotron';
 import Header from './Header';
 import Navbar from './Navbar';
-import Notifications, {notify} from 'react-notify-toast';
+import {notify} from 'react-notify-toast';
 import shopify from "../../assets/shopify.svg"
 import slack from "../../assets/slack.svg"
 import kickstarter from "../../assets/kickstarter.svg"
