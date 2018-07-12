@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import { isLoggedIn } from '../helpers/Utils';
-import ReviewCard from './Review';
+import ReviewCard from './ReviewCard';
 import Navbar from '../layout/Navbar'
 import axios from 'axios'
 import { ROOT_URL } from '../../App'
