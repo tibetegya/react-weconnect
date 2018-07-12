@@ -1,7 +1,7 @@
 # react-weconnect
 
-[![Build Status](https://travis-ci.org/tibetegya/react-weconnect.svg?branch=develop)](https://travis-ci.org/tibetegya/react-weconnect)
-[![Coverage Status](https://coveralls.io/repos/github/tibetegya/react-weconnect/badge.svg?branch=develop)](https://coveralls.io/github/tibetegya/react-weconnect?branch=develop)
+[![Build Status](https://travis-ci.org/tibetegya/react-weconnect.svg?branch=ch-file-names-159004703)](https://travis-ci.org/tibetegya/react-weconnect)
+[![Coverage Status](https://coveralls.io/repos/github/tibetegya/react-weconnect/badge.svg?branch=ch-file-names-159004703)](https://coveralls.io/github/tibetegya/react-weconnect?branch=develop)
 
 This is the WeConnect client application it is built using [React.js](https://reactjs.org/)
 In order to run a working prototype of the application go to [WeConnect Portal](https://react-weconnect.herokuapp.com/)
@@ -54,7 +54,7 @@ In order to test the application you can run the command
 Run test coverage by running the command 
 
 ```
-    npm test -- --coverage
+    npm test run coverage
 ```
 ## Check How App works on Heroku
 

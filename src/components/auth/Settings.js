@@ -1,5 +1,10 @@
 import React  from 'react';
-
+/**
+ *
+ *
+ * @param {*} props
+ * @returns SettingsButton
+ */
 function SettingsButton (props){
     return (
         <li className="nav-item" id='settings'>

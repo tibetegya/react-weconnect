@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 
-
+/**
+ *
+ *
+ * @export
+ * @class BusinessCard
+ * @extends {Component}
+ */
 export default class BusinessCard extends Component {
 constructor(props) {
     super(props);

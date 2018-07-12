@@ -6,7 +6,13 @@ import Header from '../layout/Header';
 import { ROOT_URL } from '../../App'
 import {notify} from 'react-notify-toast';
 
- class Login extends Component{
+/**
+ *
+ *
+ * @class Login
+ * @extends {Component}
+ */
+class Login extends Component{
 
 constructor(props) {
 		super(props);
@@ -99,17 +105,10 @@ handlePasswordReset = e =>{
 		}
 
 }
-componentDidMount(){
-		//display message upon sucessful registration
-		// if(this.props.match.params.msg){
-        //     notify.show('You are registered sucessfully', 'success')
-        // }
-}
 render(){
 	return(
 		<div>
-		{/* <Notifications options={{zIndex: 20000}} /> */}
-			<Navbar page="userlogger"/>
+			<Navbar page="userlogger" />
 				<div className="container">
 
 					<Header heading="Log In To your Account"/>

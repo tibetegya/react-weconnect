@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 
-
+/**
+ *
+ *
+ * @export
+ * @class ReviewCard
+ * @extends {Component}
+ */
 export default class ReviewCard extends Component{
 constructor(props){
     super(props)

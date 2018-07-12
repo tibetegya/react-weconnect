@@ -111,7 +111,7 @@ describe('UserProfile Component', () => {
         expect(notify.show).toHaveBeenCalledWith("Description is missing", "error")
     })
 
-    it('should notify user to input business Description', ()=>{
+    it('should throw no error', ()=>{
         mock.onGet(`${ROOT_URL}/businesses`).reply(200, {businesses: [
             {
                 business_name :'business',

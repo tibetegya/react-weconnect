@@ -11,6 +11,12 @@ import { isLoggedIn } from '../helpers/Utils';
 import AddBusiness from '../business/AddBusiness';
 import Profile from '../layout/Profile'
 
+/**
+ *
+ *
+ * @class UserProfile
+ * @extends {Component}
+ */
 class UserProfile extends Component {
   constructor(props){
     super(props)
@@ -117,7 +123,7 @@ render(){
         return (
           isLoggedIn() ?
           <div>
-            <Navbar/>
+            <Navbar history={this.props.history}/>
             {/* <Notifications options={{zIndex: 20000}}/> */}
             <Profile type={this.state.type} toggle={this.toggle} user={this.state.user}/>
           <div className="container user-profile">

@@ -5,7 +5,14 @@ import { ROOT_URL } from '../../App'
 import Navbar from '../layout/Navbar'
 import {notify} from 'react-notify-toast';
 
- class Register extends Component{
+
+/**
+ *
+ *
+ * @class Register
+ * @extends {Component}
+ */
+class Register extends Component{
 
 constructor(props) {
         super(props);
@@ -47,6 +54,7 @@ handleSubmit = e => {
                 this.props.history.push('/login/success');
           })
           .catch(error =>{
+            notify.show('Registration Unsuccessful', 'error')
           });
         }
 }
@@ -71,7 +79,6 @@ handleInput = e => {
 render(){
     return(
         <div>
-             {/* <Notifications /> */}
         <Navbar page="userlogger"/>
 
         <div className="container">

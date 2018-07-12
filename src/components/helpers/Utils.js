@@ -1,5 +1,9 @@
 
-//logged in helper function.
+/**
+ *
+ *
+ * @returns isLoggedIn
+ */
 export const isLoggedIn = ()=>{
     if(localStorage.getItem('token')){
         return true;
@@ -8,9 +12,3 @@ export const isLoggedIn = ()=>{
     }
 
 }
- const login = (obj, err) => {
-    if(err.response.status === 401){
-        obj.props.history.push('/login');
-    }
-}
-export default login

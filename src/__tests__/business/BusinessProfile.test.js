@@ -25,7 +25,7 @@ describe('BusinessProfile Component', () => {
     mock.onPost(`${ROOT_URL}/businesses/${1}/reviews`).reply(201, {message: "Review added"})
     mock.onPut(`${ROOT_URL}/businesses/${1}`).reply(200, {businesses: []})
 
-    const wrapper = shallow(<BusinessProfile match={match}/>)
+    const wrapper = shallow(<BusinessProfile match={match} history={[]}/>)
     beforeEach(function () {
 
 
@@ -89,5 +89,73 @@ describe('BusinessProfile Component', () => {
          })
          wrapper.instance().handleSubmitReview({preventDefault: ()=>{}})
      })
+
+    it('should notify when business name is missing', ()=>{
+        // wrapper.setState({
+        //     businessName: 'my business'
+        //  })
+         wrapper.instance().handleSubmit({preventDefault: ()=>{}})
+         expect(notify.show).toBeCalledWith("Business Name is missing", "error")
+     })
+
+    it('should notify when Category is missing', ()=>{
+        wrapper.setState({
+            businessName: 'my business'
+         })
+         wrapper.instance().handleSubmit({preventDefault: ()=>{}})
+         expect(notify.show).toBeCalledWith("You must select a Category", "error")
+     })
+
+    it('should notify when Country is missing', ()=>{
+        wrapper.setState({
+            businessName: 'my business',
+            category: 'myCategory'
+         })
+         wrapper.instance().handleSubmit({preventDefault: ()=>{}})
+         expect(notify.show).toBeCalledWith("You must select a Country", "error")
+     })
+
+    it('should notify when City is missing', ()=>{
+        wrapper.setState({
+            businessName: 'my business',
+            category: 'myCategory',
+            businessCountry: 'myCountry'
+         })
+         wrapper.instance().handleSubmit({preventDefault: ()=>{}})
+         expect(notify.show).toBeCalledWith("City is missing", "error")
+     })
+
+    it('should notify when Address is missing', ()=>{
+        wrapper.setState({
+            businessName: 'my business',
+            category: 'myCategory',
+            businessCountry: 'myCountry',
+            businessCity: 'myCity'
+         })
+         wrapper.instance().handleSubmit({preventDefault: ()=>{}})
+         expect(notify.show).toBeCalledWith("business Address is missing", "error")
+     })
+
+    it('should post business', ()=>{
+        wrapper.setState({
+            businessName: 'my business',
+            category: 'myCategory',
+            businessCountry: 'myCountry',
+            businessCity: 'myCity',
+            businessAddress: 'myAddress',
+            description: 'myDescription'
+         })
+         wrapper.instance().handleSubmit({preventDefault: ()=>{}})
+     })
+
+    it('should toggle modal', ()=>{
+         wrapper.instance().toggleReview()
+         expect(wrapper.instance().state.modalReview).toEqual(true)
+     })
+
+     it('should notify when Category is missing', ()=>{
+        wrapper.instance().handleBusinessDelete({preventDefault: ()=>{}})
+        // expect(wrapper.instance().state.modalReview).toEqual(true)
+    })
 
 })

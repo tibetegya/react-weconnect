@@ -10,7 +10,7 @@ import Results from './components/business/Results'
 import Notifications from 'react-notify-toast'
 
 
-export const ROOT_URL = 'http://127.0.0.1:5000/api/v2';
+export const ROOT_URL = 'https://weconnect-tibe.herokuapp.com/api/v2';
 const Routes = () => (
   <Router>
     <div>

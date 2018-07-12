@@ -8,7 +8,12 @@ import shopify from "../../assets/shopify.svg"
 import slack from "../../assets/slack.svg"
 import kickstarter from "../../assets/kickstarter.svg"
 import lyft from "../../assets/lyft.svg"
-
+/**
+ *
+ *
+ * @class Home
+ * @extends {Component}
+ */
 class Home extends Component {
 componentDidMount(){
         //displays message for successful business deletion
@@ -26,8 +31,7 @@ render(){
         And creates awareness for businesses through user reviews`
         return (
                 <div>
-                  {/* <Notifications options={{zIndex: 20000}}/> */}
-                  <Navbar navClass="sticky-top shadow" page="home"/>
+                  <Navbar navClass="sticky-top shadow" page="home" history={this.props.history}/>
                   <Jumbotron>
                     <Header color="white" heading="WeConnect" text={slogan}/>
                   </Jumbotron>

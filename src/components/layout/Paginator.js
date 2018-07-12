@@ -1,5 +1,10 @@
 import React from 'react'
-
+/**
+ *
+ *
+ * @param {*} props
+ * @returns Paginator
+ */
 function Paginator (props) {
         let paginateLinks = [{name:'prev',page:props.prevPage},{name:'next',page:props.nextPage}]
 

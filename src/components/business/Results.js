@@ -6,6 +6,13 @@ import Search from './Search'
 import Navbar from '../layout/Navbar'
 import Paginator from '../layout/Paginator';
 
+/**
+ *
+ *
+ * @export
+ * @class Results
+ * @extends {Component}
+ */
 export default class Results extends Component {
     constructor(props) {
         super(props);
@@ -86,13 +93,13 @@ paginate = e =>{
 render(){
         return (
             <div className="results">
-                <Navbar navClass="sticky-top shadow"/>
+                <Navbar navClass="sticky-top shadow" history={this.props.history}/>
             <div className="container" style={{ marginTop: '4rem'}}>
                 <Search handleSubmit={this.handleSubmit} handleInput={this.handleInput}/>
             <div>
                 <div >
                 { this.state.businessData.map(business =>
-            <BusinessCard 
+            <BusinessCard
             key={business.id} name={business.business_name} category={business.category}
             location={business.location} profile={business.profile} id={business.id}
             />

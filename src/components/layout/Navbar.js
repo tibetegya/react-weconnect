@@ -6,7 +6,12 @@ import { LoginButton,  RegisterButton, BusinessesButton } from './Buttons'
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import { ROOT_URL } from '../../App';
-
+/**
+ *
+ *
+ * @class Navbar
+ * @extends {Component}
+ */
 class Navbar extends Component {
 constructor(props) {
     super(props);
@@ -68,8 +73,16 @@ logoutUser = e =>{
             //remove the token from localstorage and redirect to the home page
             localStorage.removeItem('token')
             this.props.history.push('/');
-      }).catch( (error) =>{})
-          }else{
+      }).catch( (error) =>{
+        this.setState({
+          token:'',
+          isLoggedIn: false
+      });
+      //remove the token from localstorage and redirect to the home page
+      localStorage.removeItem('token')
+      this.props.history.push('/');
+      })
+      }else{
               //if no token exists redirect the user to login
           this.props.history.push('/login');
       }

@@ -1,7 +1,13 @@
 import React from 'react';
 import { isLoggedIn } from '../helpers/Utils';
 
-
+/**
+ *
+ *
+ * @export
+ * @param {*} props
+ * @returns RegisterButton
+ */
 export function RegisterButton(props) {
   //returns a register button
     return (
@@ -13,6 +19,14 @@ export function RegisterButton(props) {
     </li>
     );
 }
+
+/**
+ *
+ *
+ * @export
+ * @param {*} props
+ * @returns LoginButton
+ */
 export function LoginButton(props) {
     //returns a login button
     return (
@@ -24,6 +38,14 @@ export function LoginButton(props) {
         </li>
     );
 }
+
+/**
+ *
+ *
+ * @export
+ * @param {*} props
+ * @returns BuBusinessesButton
+ */
 export function BusinessesButton(props) {
   //returns  businesses link
   return (

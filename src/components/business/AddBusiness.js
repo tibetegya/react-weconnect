@@ -3,6 +3,14 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import * as categoryData from '../../assets/categories.json';
 import * as countryData from '../../assets/countries.json';
 
+
+/**
+ *
+ *
+ * @export
+ * @param {*} props
+ * @returns AddBusiness
+ */
 export default function AddBusiness (props){
   let countries = [].concat(countryData)
   let categories = [].concat(categoryData)
