@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 
 
-class Layout extends Component {
-    render(){
+function Layout(props) {
         return (
             <div className="container-fluid">
-                {this.props.children}
+                {props.children}
             </div>
           );
     }
-}
+
 
 
 export default Layout;

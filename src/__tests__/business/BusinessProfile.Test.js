@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import BusinessProfile from '../../components/business/business-profile'
+import BusinessProfile from '../../components/business/BusinessProfile'
 import {MemoryRouter} from 'react-router-dom'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter';

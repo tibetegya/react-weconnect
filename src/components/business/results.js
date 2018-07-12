@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { ROOT_URL } from '../../App';
-import BusinessCard from './../business/business';
-import Search from './../business/search'
-import Navbar from './../layout/navbar'
-import Paginator from '../layout/paginator';
+import BusinessCard from './Business';
+import Search from './Search'
+import Navbar from '../layout/Navbar'
+import Paginator from '../layout/Paginator';
 
 export default class Results extends Component {
     constructor(props) {

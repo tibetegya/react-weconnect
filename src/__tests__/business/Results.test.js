@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import {MemoryRouter} from 'react-router-dom'
 import axios from 'axios'
-import Results from '../../components/business/results'
-import Paginator from '../../components/layout/paginator'
+import Results from '../../components/business/Results'
+import Paginator from '../../components/layout/Paginator'
 import MockAdapter from 'axios-mock-adapter';
 import {ROOT_URL} from '../../App'
 

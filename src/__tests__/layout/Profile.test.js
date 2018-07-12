@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom'
-import Profile from '../../components/layout/profile'
+import Profile from '../../components/layout/Profile'
 
 describe('Profile Component', () => {
 

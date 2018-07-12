@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom'
-import Paginator from '../../components/layout/paginator'
+import Paginator from '../../components/layout/Paginator'
 
 describe('Paginator Component', () => {
 

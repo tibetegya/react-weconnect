@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom'
-import login, {isLoggedIn} from '../../components/helpers/utils'
+import login, {isLoggedIn} from '../../components/helpers/Utils'
 
 describe('islogggedin function', () => {
 

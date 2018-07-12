@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Header from '../layout/header';
+import Header from '../layout/Header';
 import { ROOT_URL } from '../../App'
-import Navbar from '../layout/navbar'
+import Navbar from '../layout/Navbar'
 import Notifications, {notify} from 'react-notify-toast';
 
  class Register extends Component{

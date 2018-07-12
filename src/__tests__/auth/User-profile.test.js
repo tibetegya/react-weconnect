@@ -1,17 +1,16 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import UserProfile from '../../components/auth/user-profile'
+import UserProfile from '../../components/auth/userProfile'
 import {MemoryRouter} from 'react-router-dom'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter';
 import {notify} from 'react-notify-toast'
 import {ROOT_URL} from '../../App'
-import BusinessCard from '../../components/business/business'
+import BusinessCard from '../../components/business/Business'
 
 describe('UserProfile Component', () => {
 
-    let token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYnJ5bzEyIiwiZXhwIj\
-                oxNTMxMjYxNDcwfQ.hFiNbShE9kQxSfZjzd3zM0P0A5kLocrU8yNjOb2O17g'
+    let token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYnJ5bzEyIiwiZXhwIjoxNTMxMjYxNDcwfQ.hFiNbShE9kQxSfZjzd3zM0P0A5kLocrU8yNjOb2O17g'
     const match ={
         params:{
             name: 'bryo12'

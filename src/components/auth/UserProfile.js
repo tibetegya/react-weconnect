@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { withRouter, Redirect } from 'react-router-dom'
 
-import BusinessCard from '../business/business';
-import Navbar from '../layout/navbar'
+import BusinessCard from '../business/Business';
+import Navbar from '../layout/Navbar'
 import axios from 'axios';
 import { ROOT_URL } from '../../App'
 
 import Notifications, {notify} from 'react-notify-toast';
-import { isLoggedIn } from '../helpers/utils';
-import AddBusiness from '../business/addBusiness';
-import Profile from '../layout/profile'
+import { isLoggedIn } from '../helpers/Utils';
+import AddBusiness from '../business/AddBusiness';
+import Profile from '../layout/Profile'
 
 class UserProfile extends Component {
   constructor(props){

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Home from './components/layout/home';
-import Layout from './layout';
-import Login from './components/auth/login';
-import Register from './components/auth/register';
-import BusinessProfile from './components/business/business-profile';
-import UserProfile from './components/auth/user-profile';
-import Results from './components/business/results'
+import Home from './components/layout/Home';
+import Layout from './Layout';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+import BusinessProfile from './components/business/BusinessProfile';
+import UserProfile from './components/auth/UserProfile';
+import Results from './components/business/Results'
 import Notifications from 'react-notify-toast'
 
 

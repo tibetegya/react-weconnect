@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import logo from '../../css/Images/logo.svg';
-import SettingsButton from '../auth/settings'
-import { LoginButton,  RegisterButton, BusinessesButton } from './../layout/buttons'
+import SettingsButton from '../auth/Settings'
+import { LoginButton,  RegisterButton, BusinessesButton } from './Buttons'
 import jwt_decode from 'jwt-decode';
 
 class Navbar extends Component {
@@ -46,16 +46,43 @@ componentWillUnmount =()=>{
 
     })
 }
+logoutUser = e =>{
+  e.preventDefault();
+
+      //logout the user
+      if(localStorage.getItem('token')){
+
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
+      axios.post(`${ROOT_URL}/auth/logout`, {
+        headers: {'Content-Type':'application/json'}
+
+    })
+      .then( () => {
+          //update the state on successful logout
+            this.setState({
+                token:'',
+                isLoggedIn: false
+            });
+            //remove the token from localstorage and redirect to the home page
+            localStorage.removeItem('token')
+            this.props.history.push('/');
+      }).catch( (error) =>{})
+          }else{
+              //if no token exists redirect the user to login
+          this.props.history.push('/login');
+      }
+}
 
 render(){
 
     let navClassName = "navbar navbar-expand-lg navbar-dark "+this.state.navClass;
     const isLoggedIn = this.state.isLoggedIn;
       let button;
+      // console.log(this.props)
 
     //conditional rendering of buttons when or not a user is logged in
     if (isLoggedIn) {
-      button = <SettingsButton user={this.state.user} logout={this.state}/>;
+      button = <SettingsButton logoutUser={this.logoutUser} user={this.state.user} logout={this.state}/>;
     } else {
       if (this.state.page === 'userlogger') {
         button = null;

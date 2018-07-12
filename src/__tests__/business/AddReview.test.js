@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import AddReview from '../../components/business/addReview'
+import AddReview from '../../components/business/AddReview'
 
 describe('AddReview Component', () => {
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom'
-import {BusinessesButton} from '../../components/layout/buttons'
+import {BusinessesButton} from '../../components/layout/Buttons'
 
 describe('BusinessesButton Component', () => {
 

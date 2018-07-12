@@ -1,5 +1,5 @@
 import React from 'react';
-import { isLoggedIn } from './../helpers/utils';
+import { isLoggedIn } from '../helpers/Utils';
 
 
 export function RegisterButton(props) {
