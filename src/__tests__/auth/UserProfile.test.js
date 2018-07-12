@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import UserProfile from '../../components/auth/userProfile'
+import UserProfile from '../../components/auth/UserProfile'
 import {MemoryRouter} from 'react-router-dom'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter';
