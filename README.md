@@ -1,7 +1,7 @@
 # react-weconnect
 
-[![Build Status](https://travis-ci.org/tibetegya/react-weconnect.svg?branch=ch-file-names-159004703)](https://travis-ci.org/tibetegya/react-weconnect)
-[![Coverage Status](https://coveralls.io/repos/github/tibetegya/react-weconnect/badge.svg?branch=ch-file-names-159004703)](https://coveralls.io/github/tibetegya/react-weconnect?branch=develop)
+[![Build Status](https://travis-ci.org/tibetegya/react-weconnect.svg?branch=master)](https://travis-ci.org/tibetegya/react-weconnect)
+[![Coverage Status](https://coveralls.io/repos/github/tibetegya/react-weconnect/badge.svg?master)](https://coveralls.io/github/tibetegya/react-weconnect?branch=master)
 
 This is the WeConnect client application it is built using [React.js](https://reactjs.org/)
 In order to run a working prototype of the application go to [WeConnect Portal](https://react-weconnect.herokuapp.com/)
@@ -12,13 +12,10 @@ If you want to build on top of this application clone this repository
     git clone https://github.com/tibetegya/react-weconnect.git
 ```
 
-Make sure you have `node` and `npm` installed on your system.
-
 This project was built using `create-react-app` to build the project folder structure, use the command
 
-```
-    create-react-app react-weconnect
-```
+Make sure you have `npm` and `react.js` installed on your system, to install react.js follow the instructions </br>
+on this [link](https://reactjs.org/)
 
 ## Api Setup
 In order to run the project locally you should glone the WeConnect backend python application which 
@@ -59,3 +56,4 @@ Run test coverage by running the command
 ## Check How App works on Heroku
 
 In order to view the React application on heroku click on this [link](https://react-weconnect.herokuapp.com/)
+
