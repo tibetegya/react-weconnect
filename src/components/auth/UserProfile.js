@@ -1,16 +1,22 @@
-import React, { Component } from 'react';
-import { withRouter, Redirect } from 'react-router-dom'
+import React, {Component} from 'react';
+import { Redirect } from 'react-router-dom'
 
-import BusinessCard from '../business/business';
-import Navbar from '../layout/navbar'
+import BusinessCard from '../business/BusinessCard';
+import Navbar from '../layout/Navbar'
 import axios from 'axios';
 import { ROOT_URL } from '../../App'
 
-import Notifications, {notify} from 'react-notify-toast';
-import { isLoggedIn } from '../helpers/utils';
-import AddBusiness from '../business/addBusiness';
-import Profile from '../layout/profile'
+import {notify} from 'react-notify-toast';
+import { isLoggedIn } from '../helpers/Utils';
+import AddBusiness from '../business/AddBusiness';
+import Profile from '../layout/Profile'
 
+/**
+ *
+ *
+ * @class UserProfile
+ * @extends {Component}
+ */
 class UserProfile extends Component {
   constructor(props){
     super(props)
@@ -117,7 +123,7 @@ render(){
         return (
           isLoggedIn() ?
           <div>
-            <Navbar/>
+            <Navbar history={this.props.history}/>
             {/* <Notifications options={{zIndex: 20000}}/> */}
             <Profile type={this.state.type} toggle={this.toggle} user={this.state.user}/>
           <div className="container user-profile">

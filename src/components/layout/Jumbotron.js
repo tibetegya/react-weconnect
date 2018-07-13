@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-
-export default class Jumbotron extends Component {
-render(){
+/**
+ *
+ *
+ * @export
+ * @param {*} props
+ * @returns Jumbotron
+ */
+export default function Jumbotron (props){
     return(
         <div className="jumbotron jumbotron-fluid">
         <div className="container">
-                {this.props.children}
+                {props.children}
             </div>
       </div>
     );
-}
 }

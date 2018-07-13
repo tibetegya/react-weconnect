@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom'
-import Navbar from '../../components/layout/navbar'
+import Navbar from '../../components/layout/Navbar'
 
 describe('Navbar Component', () => {
 

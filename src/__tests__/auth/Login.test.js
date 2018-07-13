@@ -1,21 +1,23 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import { MemoryRouter } from 'react-router-dom'
-import Login from '../../components/auth/login'
+import Login from '../../components/auth/Login'
 import axios from 'axios'
-import moxios from 'moxios'
 import {notify} from 'react-notify-toast'
+import MockAdapter from 'axios-mock-adapter';
+import {ROOT_URL} from '../../App'
 
 
 describe('Login Component', () => {
 
-    const wrapper = shallow(<Login />)
+    let token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYnJ5bzEyIiwiZXhwIjoxNTMxMjYxNDcwfQ.hFiNbShE9kQxSfZjzd3zM0P0A5kLocrU8yNjOb2O17g'
+    let mock = new MockAdapter(axios)
+    mock.onPost(`${ROOT_URL}/auth/login`).reply(200, {})
+    mock.onPost(`${ROOT_URL}/auth/reset-password`).reply(200, {})
+    const wrapper = shallow(<Login history={[]} />)
+
     beforeEach(function () {
-        // import and pass your custom axios instance to this method
-        moxios.install()
       })
     afterEach(()=>{
-        moxios.uninstall()
         notify.show.mockClear()
 
         wrapper.instance().setState({
@@ -30,9 +32,6 @@ describe('Login Component', () => {
 
 
     it('should render the login form', () => {
-
-        let loginForm = wrapper.find('form.login')
-
         expect(wrapper.find('form.login').exists()).toBe(true)
     })
 
@@ -40,17 +39,13 @@ describe('Login Component', () => {
         expect(wrapper.find('#resetModal').exists()).toBe(true)
     })
 
-    it('simulates input event', ()=>{
+    it('supdate state', ()=>{
         wrapper.find('input[name="username"]').simulate('change', {target:{name:'username',value: 'flavia'}})
         wrapper.find('input[name="password"]').simulate('change', {target:{name:'password',value: 'flavia@andela.com'}})
         expect(wrapper.instance().state.username).toEqual('flavia')
         expect(wrapper.instance().state.password).toEqual('flavia@andela.com')
     })
 
-    it('should call handleInput', ()=>{
-
-        const spy = jest.spyOn(wrapper.instance(), 'handleInput')
-    })
 
     it('should notify user', ()=>{
         let spy = jest.spyOn(wrapper.instance(), 'handleSubmit');
@@ -58,6 +53,12 @@ describe('Login Component', () => {
         wrapper.find('input[name="password"]').simulate('change', {target:{name:'password',value: 'flavia@andela.com'}})
         wrapper.find('form.login').simulate('submit',{preventDefault: ()=>{}})
         expect(spy).toHaveBeenCalled();
+    })
+
+    it('should provide response ', ()=>{
+        wrapper.instance().handleInput({target:{name: 'username', value: 'flavia'}})
+        wrapper.instance().handleInput({target:{name: 'password', value: 'flavia@andela.com'}})
+        wrapper.instance().handleSubmit({preventDefault: ()=>{}})
 
     })
 
@@ -68,6 +69,7 @@ describe('Login Component', () => {
         expect(notify.show).toHaveBeenCalledWith('Password is missing', 'error')
 
     })
+
     it('should validate email on reset', ()=>{
         let spy = jest.spyOn(wrapper.instance(), 'handlePasswordReset');
         wrapper.find('input[name="newPassword"]').simulate('change', {target:{name:'newPassword',value: '123456789'}})

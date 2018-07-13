@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import AddBusiness from '../../components/business/addBusiness'
+import AddBusiness from '../../components/business/AddBusiness'
 import * as categoryData from '../../assets/categories.json';
 import * as countryData from '../../assets/countries.json';
 

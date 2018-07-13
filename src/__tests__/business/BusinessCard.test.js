@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom'
-import BusinessCard from '../../components/business/business'
+import BusinessCard from '../../components/business/BusinessCard'
 
 describe('BusinessCard function', () => {
     it('should render', () => {

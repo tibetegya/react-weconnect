@@ -1,7 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button } from 'reactstrap';
-
- function Profile (props){
+/**
+ *
+ *
+ * @param {*} props
+ * @returns Paginator
+ */
+function Profile (props){
     let type = ()  => {
             if(props.type === 'user'){
                 return(

@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import Navbar from '../layout/navbar'
-import Header from './../layout/header';
+import Navbar from '../layout/Navbar'
+import Header from '../layout/Header';
 import { ROOT_URL } from '../../App'
-import Notifications, {notify} from 'react-notify-toast';
+import {notify} from 'react-notify-toast';
 
- class Login extends Component{
+/**
+ *
+ *
+ * @class Login
+ * @extends {Component}
+ */
+class Login extends Component{
 
 constructor(props) {
 		super(props);
@@ -49,7 +55,8 @@ handleSubmit = e => {
 
 				//redirect user to home page
 				this.props.history.push('/home/login-success');
-		  }).catch(error =>{
+		  })
+		  .catch(error =>{
 			  //display error massage to user on failure to login
 			notify.show(error.response.data.message, 'error')
 		  })
@@ -89,7 +96,8 @@ handlePasswordReset = e =>{
 			  .then(res => {
 				  //display message on successful password reset
 					notify.show(res.data.message, 'success')
-			  }).catch(error =>{
+			  })
+			  .catch(error =>{
 
 				//display message on failure of password reset
 					notify.show(error.response.data.message, 'error')
@@ -97,17 +105,10 @@ handlePasswordReset = e =>{
 		}
 
 }
-componentDidMount(){
-		//display message upon sucessful registration
-		// if(this.props.match.params.msg){
-        //     notify.show('You are registered sucessfully', 'success')
-        // }
-}
 render(){
 	return(
 		<div>
-		{/* <Notifications options={{zIndex: 20000}} /> */}
-			<Navbar page="userlogger"/>
+			<Navbar page="userlogger" />
 				<div className="container">
 
 					<Header heading="Log In To your Account"/>

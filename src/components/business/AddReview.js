@@ -1,6 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
+/**
+ *
+ *
+ * @export
+ * @param {*} props
+ * @returns AddReview
+ */
 export default function AddReview (props){
         return(
           <Modal isOpen={props.isOpen} toggle={props.toggle} className={props.className}>

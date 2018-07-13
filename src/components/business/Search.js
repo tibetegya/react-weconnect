@@ -1,7 +1,13 @@
-import React, { Component }from 'react';
+import React from 'react';
 import * as categoryData from '../../assets/categories.json';
 import * as countryData from '../../assets/countries.json';
 
+/**
+ *
+ *
+ * @param {*} props
+ * @returns Search
+ */
 function Search (props) {
 
   let countries = [].concat(countryData)

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom'
-import Register from '../../components/auth/register.js';
+import Register from '../../components/auth/Register';
 import axios from 'axios'
 import {notify} from 'react-notify-toast'
 

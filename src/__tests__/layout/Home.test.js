@@ -1,11 +1,10 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom'
-import Home from '../../components/layout/home'
+import Home from '../../components/layout/Home'
+import {notify} from 'react-notify-toast'
 
 describe('home Component', () => {
-
-    
 
     it('should run notifications', () => {
       let match = {
@@ -14,6 +13,7 @@ describe('home Component', () => {
           }
       }
       let wrapper = shallow(<Home match={match}/>)
+      expect(notify.show).toBeCalledWith("Business Deleted sucessfully", "success")
       })
 
       it('should run notifications', () => {
@@ -23,5 +23,6 @@ describe('home Component', () => {
             }
         }
         let wrapper = shallow(<Home match={match}/>)
+        expect(notify.show).toBeCalledWith("Sucessfully logged in", "success", 1000)
         })
 });

@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
-import { isLoggedIn } from './../helpers/utils';
-import ReviewCard from './../business/review';
-import Navbar from './../layout/navbar'
+import { isLoggedIn } from '../helpers/Utils';
+import ReviewCard from './ReviewCard';
+import Navbar from '../layout/Navbar'
 import axios from 'axios'
 import { ROOT_URL } from '../../App'
-import Notifications, {notify} from 'react-notify-toast';
+import {notify} from 'react-notify-toast';
 import jwt_decode from 'jwt-decode';
-import AddReview from './addReview';
-import login from '../helpers/utils'
-import AddBusiness from './addBusiness';
-import Profile from '../layout/profile'
+import AddReview from './AddReview';
+import AddBusiness from './AddBusiness';
+import Profile from '../layout/Profile'
 import { Button } from 'reactstrap';
 
+/**
+ *
+ *
+ * @class BusinessProfile
+ * @extends {Component}
+ */
 class BusinessProfile extends Component {
 constructor(props){
     super(props);
@@ -143,7 +148,7 @@ handleBusinessDelete = e =>{
             this.props.history.push('/home/delete-success')
       })
       .catch(error =>{
-        // login(this, error)
+        this.props.history.push('/login')
       });
 }
 
@@ -185,7 +190,7 @@ handleSubmit = e => {
         notify.show('Business Editted sucessfully', 'success')
     })
     .catch(error =>{
-
+      this.props.history.push('/login')
     });
 
   }
@@ -239,7 +244,7 @@ render(){
         return (
           isLoggedIn()?
           <div>
-            <Navbar/>
+            <Navbar history={this.props.history}/>
             {/* <Notifications options={{zIndex: 20000}}/> */}
         <Profile type={this.state.type} businessName={this.state.business.business_name} 
         location={this.state.business.location} category={this.state.business.category} actionButton={this.actionButton}/>
