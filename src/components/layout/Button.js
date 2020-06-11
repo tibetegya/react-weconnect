@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Navbar = props => {
+const Button = props => {
   return (
     <div>
       
@@ -9,8 +9,8 @@ const Navbar = props => {
   )
 }
 
-Navbar.propTypes = {
+Button.propTypes = {
 
 }
 
-export default Navbar
+export default Button
