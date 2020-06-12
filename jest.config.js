@@ -9,6 +9,7 @@ module.exports = {
     "!jest.config.js",
     "!/cypress/**"
   ],
+  coverageDirectory: '.coverage-jest',
   moduleDirectories: [
     'node_modules',
     'utils',

@@ -31,3 +31,7 @@ yarn-error.log*
 
 db.json
 /assets
+/.coverage-jest
+/.coverage-cypress
+/.nyc_output
+/.coverage
