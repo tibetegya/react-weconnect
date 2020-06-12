@@ -1,5 +1,3 @@
-console.log('>>>', process.env.NODE_ENV)
-
 const isCypress = process.env.NODE_ENV === 'test'
 
 module.exports = {
