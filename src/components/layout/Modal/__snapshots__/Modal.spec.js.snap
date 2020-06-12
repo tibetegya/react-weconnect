@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal Component should render corectly 1`] = `
+<div
+  data-testid="modal"
+>
+  Modal
+</div>
+`;
