@@ -6,7 +6,7 @@ import Footer from '../Footer'
 
 const AppShell = props => {
   return (
-    <div>
+    <div data-testid="app-shell">
       <Navbar />
       AppShell
       <Footer />

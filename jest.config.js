@@ -2,6 +2,7 @@ module.exports = {
   verbose: true,
   collectCoverageFrom: [
     "./src/**/*.{js,jsx}",
+    "!**/*.stories.{js,jsx}",
     "!**/node_modules/**",
     "!**/vendor/**",
     "!babel.config.js",

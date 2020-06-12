@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppShell Component tests should render corectly 1`] = `
+<div
+  data-testid="app-shell"
+>
+  <div>
+    Navbar
+  </div>
+  AppShell
+  <div>
+    Footer
+  </div>
+</div>
+`;
