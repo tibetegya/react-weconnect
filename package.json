@@ -76,6 +76,6 @@
     }
   },
   "lint-staged": {
-    "*.js": "npm run fix-all"
+    "*.js": "npm run lint"
   }
 }
