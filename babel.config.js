@@ -1,6 +1,6 @@
-const isCypress = process.env.NODE_ENV === 'test'
+const isCypress = process.env.NODE_ENV === 'test';
 
 module.exports = {
-  presets: ["next/babel"],
-  plugins:  isCypress ? ["istanbul"] : []
-}
+  presets: ['next/babel'],
+  plugins: isCypress ? ['istanbul'] : [],
+};

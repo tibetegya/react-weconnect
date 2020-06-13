@@ -1,16 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 import {
-  AppShellSlice
-} from '../components'
-
+  AppShellSlice,
+} from '../components';
 
 const reducer = {
-  appShell: AppShellSlice.reducer
-}
+  appShell: AppShellSlice.reducer,
+};
 
 const store = configureStore({
   reducer,
-  devTools: process.env.NODE_ENV !== "production"
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 export default store;

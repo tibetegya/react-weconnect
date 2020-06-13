@@ -1,2 +1,2 @@
-export * from './test-utils'
-export * from './themes'
+export * from './test-utils';
+export * from './themes';

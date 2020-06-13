@@ -1,16 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
 
-const Modal = props => {
-  return (
-    <div data-testid="modal">
-      Modal
-    </div>
-  )
-}
+const Modal = () => (
+  <div data-testid="modal">
+    Modal
+  </div>
+);
 
-Modal.propTypes = {
-
-}
-
-export default Modal
+export default Modal;

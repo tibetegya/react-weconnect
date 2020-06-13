@@ -11,7 +11,6 @@ export const teal = {
   900: '#171231',
 };
 
-
 export const purple = {
   50: '#CAFCF9',
   100: '#B9FBF7',

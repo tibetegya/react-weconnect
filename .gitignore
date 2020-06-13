@@ -35,3 +35,6 @@ db.json
 /.coverage-cypress
 /.nyc_output
 /.coverage
+
+/cypress/videos
+/cypress/screenshots
