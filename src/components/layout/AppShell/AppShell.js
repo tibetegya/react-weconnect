@@ -1,21 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
 
-import Navbar from '../Navbar'
-import Footer from '../Footer'
+import Navbar from '../Navbar';
+import Footer from '../Footer';
 
-const AppShell = props => {
-  return (
-    <div data-testid="app-shell">
-      <Navbar />
-      AppShell
-      <Footer />
-    </div>
-  )
-}
+const AppShell = () => (
+  <div data-testid="app-shell">
+    <Navbar />
+    AppShell
+    <Footer />
+  </div>
+);
 
-AppShell.propTypes = {
-
-}
-
-export default AppShell
+export default AppShell;

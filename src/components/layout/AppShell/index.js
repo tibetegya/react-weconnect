@@ -1,2 +1,2 @@
 export { default as AppShell } from './AppShell';
-export { AppShellSlice } from './AppShellSlice'
+export { AppShellSlice } from './AppShellSlice';

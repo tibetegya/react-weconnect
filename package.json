@@ -15,13 +15,17 @@
     "combined-cov": "npm run cov-clean && npm run jest-cov && npm run test-cy",
     "copy-reports": "rm -f .nyc_output/out.json && cp .coverage-cypress/coverage-final.json .nyc_output/cypress.json && cp .coverage-jest/coverage-final.json .nyc_output/jest.json",
     "merge": "nyc merge .nyc_output .nyc_output/combined.json",
-    "coverage": "npm run combined-cov && npm run copy-reports && npm run merge && istanbul report --include ./.nyc_output/combined.json --dir .nyc_output/lcov html",
+    "coverage": "npm run combined-cov && npm run copy-reports && npm run merge && nyc report --report-dir=.nyc_output/lcov --reporter=html",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "lint": "./node_modules/eslint/bin/eslint.js .",
+    "fix-all": "./node_modules/eslint/bin/eslint.js . --fix ",
+    "fix": "./node_modules/eslint/bin/eslint.js --fix "
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.3.6",
     "next": "9.4.4",
+    "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-redux": "^7.2.0",
@@ -43,8 +47,18 @@
     "babel-plugin-istanbul": "^6.0.0",
     "cross-env": "^7.0.2",
     "cypress": "^4.8.0",
-    "istanbul": "^0.4.5",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-cypress": "^2.11.1",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jest": "^23.13.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "husky": "^4.2.5",
     "jest": "^26.0.1",
+    "lint-staged": "^10.2.10",
+    "nyc": "^15.1.0",
     "start-server-and-test": "^1.11.0"
   },
   "nyc": {
@@ -54,5 +68,13 @@
       "lcov"
     ],
     "report-dir": ".coverage-cypress"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run coverage"
+    }
+  },
+  "lint-staged": {
+    "*.js": "npm run fix-all"
   }
 }

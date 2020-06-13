@@ -2,8 +2,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 // import App from 'next/app'
 import { ThemeProvider } from 'styled-components';
-import { Provider as ReduxProvider } from "react-redux";
-import { store } from '../src/redux'
+import { Provider as ReduxProvider } from 'react-redux';
+import { store } from '../src/redux';
 import * as themes from '../src/utils/themes';
 
 const MyApp = ({ Component, pageProps }) => (
