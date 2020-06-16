@@ -1,6 +1,8 @@
 import React from "react";
 import { addDecorator, addParameters } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
+import { ThemeProvider } from 'styled-components'
+import { defaultTheme } from '../src/utils/themes'
 
 const customViewports = {
   tablet: {
@@ -18,3 +20,6 @@ addParameters({
   },
 });
 
+addDecorator((storyFn) => (
+  <ThemeProvider theme={defaultTheme}>{storyFn()}</ThemeProvider>
+));

@@ -4,11 +4,11 @@
 import { ThemeProvider } from 'styled-components';
 import { Provider as ReduxProvider } from 'react-redux';
 import { store } from '../src/redux';
-import * as themes from '../src/utils/themes';
+import { defaultTheme } from '../src/utils/themes'
 
 const MyApp = ({ Component, pageProps }) => (
   <ReduxProvider store={store}>
-    <ThemeProvider theme={themes.defaultTheme}>
+    <ThemeProvider theme={defaultTheme}>
       <Component {...pageProps} />
     </ThemeProvider>
   </ReduxProvider>

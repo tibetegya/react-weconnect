@@ -18,6 +18,7 @@ module.exports = {
     },
     plugins: ['react', 'jest'],
     rules: {
+      "semi": 0,
       'react/jsx-filename-extension': [1, {extensions: ['.js', '.jsx']}],
       'no-param-reassign': ["error", { "props": false }],
       'import/no-unresolved': [2, { ignore: ['^test-utils$'] }],

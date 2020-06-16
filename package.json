@@ -17,7 +17,7 @@
     "copy-reports": "rm -f .nyc_output/out.json && cp .coverage-cypress/coverage-final.json .nyc_output/cypress.json && cp .coverage-jest/coverage-final.json .nyc_output/jest.json",
     "merge": "nyc merge .nyc_output .nyc_output/combined.json",
     "coverage": "npm run combined-cov && npm run copy-reports && npm run merge && nyc report --report-dir=.nyc_output/lcov --reporter=html",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook",
     "lint": "./node_modules/eslint/bin/eslint.js .",
     "fix-all": "./node_modules/eslint/bin/eslint.js . --fix ",
