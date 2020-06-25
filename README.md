@@ -1,4 +1,5 @@
-# react-weconnect
+<h2 align="center">React Weconnect APP</h2>
+<img height="300" align="center" style="margin-left: auto; margin-right: auto;" src="https://i.imgur.com/HP7a4mk.png">
 
 [![Build Status](https://travis-ci.org/tibetegya/react-weconnect.svg?branch=master)](https://travis-ci.org/tibetegya/react-weconnect)
 [![Coverage Status](https://coveralls.io/repos/github/tibetegya/react-weconnect/badge.svg?master)](https://coveralls.io/github/tibetegya/react-weconnect?branch=master)
